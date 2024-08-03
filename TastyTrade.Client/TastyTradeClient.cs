@@ -28,6 +28,12 @@ public class TastyTradeClient
         return JsonConvert.DeserializeObject<Customer>(customerJson);
     }
 
+    public async Task<Accounts> GetAccounts()
+    {
+        var customerJson = await Get($"{_baseUrl}/customers/me/accounts");
+        return JsonConvert.DeserializeObject<Accounts>(customerJson);
+    }
+
     private async Task<string> Get(string url)
     {
         using var client = new HttpClient();
