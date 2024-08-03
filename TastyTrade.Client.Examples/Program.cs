@@ -5,11 +5,11 @@ using TastyTrade.Client.Model.Request;
 
 namespace TastyTrade.Client.Examples;
 
-class Program
+static class Program
 {
     static async Task Main()
     {
-        var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(File.ReadAllText("./credentials.json"));
+        var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
         var authenticationResponse = await tastyTradeClient.AuthenticateAsync(credentials);
     }

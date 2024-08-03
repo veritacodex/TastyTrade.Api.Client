@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -15,8 +14,12 @@ public class TastyTradeClient
 
     public async Task<AuthenticationResponse> AuthenticateAsync(AuthorizationCredentials credentials)
     {
-        var response = await Post($"{_baseUrl}/sessions", JsonConvert.SerializeObject(credentials));
-        _authenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(response);
+        using var client = new HttpClient();
+        using var content = new StringContent(JsonConvert.SerializeObject(credentials));
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        var response = await client.PostAsync($"{_baseUrl}/sessions", content);
+        var responseJson = await response.Content.ReadAsStringAsync();
+        _authenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(responseJson);
         return _authenticationResponse;
     }
 
