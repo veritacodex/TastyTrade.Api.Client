@@ -11,6 +11,8 @@ static class Program
     {
         var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
-        var authenticationResponse = await tastyTradeClient.AuthenticateAsync(credentials);
+        await tastyTradeClient.AuthenticateAsync(credentials);
+        var customer = await tastyTradeClient.GetCustomer();
+
     }
 }
