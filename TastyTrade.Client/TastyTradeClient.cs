@@ -1,19 +1,31 @@
 ﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using TastyTrade.Client.Model.Request;
+using TastyTrade.Client.Model.Response;
 
 namespace TastyTrade.Client;
 
 public class TastyTradeClient
 {
-    private readonly string _baseUrl;
+    private const string _baseUrl = "https://api.cert.tastyworks.com";
+    private AuthenticationResponse _authenticationResponse;
 
-    public TastyTradeClient(string baseUrl, string username, string password)
+    public async Task<AuthenticationResponse> AuthenticateAsync(AuthorizationCredentials credentials)
     {
-        _baseUrl = baseUrl;
-        Authenticate(username, password);
+        var response = await Post($"{_baseUrl}/sessions", JsonConvert.SerializeObject(credentials));
+        _authenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(response);
+        return _authenticationResponse;
     }
 
-    private void Authenticate(string username, string password)
+    private static async Task<string> Post(string url, string requestContent)
     {
-        throw new NotImplementedException();
+        using var client = new HttpClient();
+        using var content = new StringContent(requestContent);
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        var response = await client.PostAsync(url, content);
+        return await response.Content.ReadAsStringAsync();
     }
 }

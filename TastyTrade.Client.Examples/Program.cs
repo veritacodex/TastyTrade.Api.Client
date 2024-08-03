@@ -1,11 +1,16 @@
-﻿using System;
+﻿using System.IO;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using TastyTrade.Client.Model.Request;
 
 namespace TastyTrade.Client.Examples;
 
 class Program
 {
-    static void Main()
+    static async Task Main()
     {
-        Console.WriteLine("Hello, World!");
+        var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(File.ReadAllText("./credentials.json"));
+        var tastyTradeClient = new TastyTradeClient();
+        var authenticationResponse = await tastyTradeClient.AuthenticateAsync(credentials);
     }
 }
