@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TastyTrade.Client", "TastyTrade.Client\TastyTrade.Client.csproj", "{6899E523-527D-4C89-A7A5-9B29BFA22B19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TastyTrade.Client.Examples", "TastyTrade.Client.Examples\TastyTrade.Client.Examples.csproj", "{B0D6FA1F-AFBE-4026-A08D-138BBFD4F6E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6899E523-527D-4C89-A7A5-9B29BFA22B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6899E523-527D-4C89-A7A5-9B29BFA22B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6899E523-527D-4C89-A7A5-9B29BFA22B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6899E523-527D-4C89-A7A5-9B29BFA22B19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0D6FA1F-AFBE-4026-A08D-138BBFD4F6E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0D6FA1F-AFBE-4026-A08D-138BBFD4F6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0D6FA1F-AFBE-4026-A08D-138BBFD4F6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0D6FA1F-AFBE-4026-A08D-138BBFD4F6E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
