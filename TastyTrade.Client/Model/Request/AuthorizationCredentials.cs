@@ -15,4 +15,7 @@ public class AuthorizationCredentials
 
     [JsonProperty("user-agent")]
     public string UserAgent { get; set; }
+
+    [JsonProperty("api-base-url")]
+    public string ApiBaseUrl { get; set; }
 }

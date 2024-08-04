@@ -11,14 +11,16 @@ namespace TastyTrade.Client;
 
 public class TastyTradeClient
 {
-    private const string _baseUrl = "https://api.cert.tastyworks.com";
     private AuthenticationResponse _authenticationResponse;
     private string _userAgent;
+    private string _baseUrl;
 
     public async Task AuthenticateAsync(AuthorizationCredentials credentials)
     {
-        using var client = new HttpClient();
         _userAgent = credentials.UserAgent;
+        _baseUrl = credentials.ApiBaseUrl;
+
+        using var client = new HttpClient();
         client.DefaultRequestHeaders.UserAgent.ParseAdd(credentials.UserAgent);
         using var content = new StringContent(JsonConvert.SerializeObject(credentials));
         content.Headers.ContentType = new MediaTypeHeaderValue(Constants.ContentType);
