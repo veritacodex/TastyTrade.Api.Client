@@ -70,10 +70,10 @@ public class TastyTradeClient
         var response = await Get($"{_baseUrl}/instruments/futures");
         return JsonConvert.DeserializeObject<FuturesResponse>(response);
     }
-    public async Task<FutureOptionsResponse> GetAllFutureOptions()
+    public async Task<FutureOptionProductsResponse> GetAllFutureOptionProducts()
     {
         var response = await Get($"{_baseUrl}/instruments/future-option-products");
-        return JsonConvert.DeserializeObject<FutureOptionsResponse>(response);
+        return JsonConvert.DeserializeObject<FutureOptionProductsResponse>(response);
     }
     public async Task<FuturesContractResponse> GetFuturesContract(string symbol)
     {

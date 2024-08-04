@@ -3,19 +3,19 @@ using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
-public class FutureOptionsResponse
+public class FutureOptionProductsResponse
 {
     [JsonProperty("data")]
-    public FutureOptionsResponseData Data { get; set; }
+    public FutureOptionProductsResponseData Data { get; set; }
 
     [JsonProperty("context")]
     public string Context { get; set; }
 }
 
-public class FutureOptionsResponseData
+public class FutureOptionProductsResponseData
 {
     [JsonProperty("items")]
-    public List<FutureOptionsResponseDataItem> Items { get; set; }
+    public List<FutureOptionProductsResponseDataItem> Items { get; set; }
 }
 
 public class FuturesTradingCutoffTime
@@ -30,7 +30,7 @@ public class FuturesTradingCutoffTime
     public string Timing { get; set; }
 }
 
-public class FutureOptionsResponseDataItem
+public class FutureOptionProductsResponseDataItem
 {
     [JsonProperty("root-symbol")]
     public string RootSymbol { get; set; }
