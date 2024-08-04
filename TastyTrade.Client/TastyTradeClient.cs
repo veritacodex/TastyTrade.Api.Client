@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -90,6 +89,11 @@ public class TastyTradeClient
     {
         var response = await Get($"{_baseUrl}/futures-option-chains/{symbol}");
         return JsonConvert.DeserializeObject<OptionChainResponse>(response);
+    }
+    public async Task<TransactionsResponse> GetTransactions(string accountNumber)
+    {
+        var response = await Get($"{_baseUrl}/accounts/{accountNumber}/transactions");
+        return JsonConvert.DeserializeObject<TransactionsResponse>(response);
     }
     private async Task<string> Get(string url)
     {
