@@ -12,4 +12,7 @@ public class AuthorizationCredentials
 
     [JsonProperty("remember-me")]
     public bool RememberMe { get; set; }
+
+    [JsonProperty("user-agent")]
+    public string UserAgent { get; set; }
 }

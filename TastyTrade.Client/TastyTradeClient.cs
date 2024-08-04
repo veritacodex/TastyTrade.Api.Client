@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using TastyTrade.Client.Model;
 using TastyTrade.Client.Model.Request;
 using TastyTrade.Client.Model.Response;
 
@@ -11,12 +12,15 @@ public class TastyTradeClient
 {
     private const string _baseUrl = "https://api.cert.tastyworks.com";
     private AuthenticationResponse _authenticationResponse;
+    private string _userAgent;
 
     public async Task AuthenticateAsync(AuthorizationCredentials credentials)
     {
         using var client = new HttpClient();
+        _userAgent = credentials.UserAgent;
+        client.DefaultRequestHeaders.UserAgent.ParseAdd(credentials.UserAgent);
         using var content = new StringContent(JsonConvert.SerializeObject(credentials));
-        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        content.Headers.ContentType = new MediaTypeHeaderValue(Constants.ContentType);
         var response = await client.PostAsync($"{_baseUrl}/sessions", content);
         var responseJson = await response.Content.ReadAsStringAsync();
         _authenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(responseJson);
@@ -37,7 +41,8 @@ public class TastyTradeClient
     private async Task<string> Get(string url)
     {
         using var client = new HttpClient();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        client.DefaultRequestHeaders.UserAgent.ParseAdd(_userAgent);
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(Constants.Accept));
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(_authenticationResponse.Data.SessionToken);
         var response = await client.GetAsync(url);
         return await response.Content.ReadAsStringAsync();
