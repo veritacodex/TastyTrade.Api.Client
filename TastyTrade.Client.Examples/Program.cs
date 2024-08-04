@@ -12,7 +12,7 @@ static class Program
         var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.AuthenticateAsync(credentials);
-        var response = await tastyTradeClient.GetFutureOptionProduct("CME", "MES");
-        await File.WriteAllTextAsync("./result.json", JsonConvert.SerializeObject(response));
+        var futuresContract = await tastyTradeClient.GetFuturesContract("ESU4");
+        await File.WriteAllTextAsync("./result.json", JsonConvert.SerializeObject(futuresContract));
     }
 }
