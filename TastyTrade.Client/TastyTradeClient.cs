@@ -51,6 +51,12 @@ public class TastyTradeClient
         return JsonConvert.DeserializeObject<Account>(response);
     }
 
+    public async Task<TradingStatus> GetAccountStatus(string accountNumber)
+    {
+        var response = await Get($"{_baseUrl}/accounts/{accountNumber}/trading-status");
+        return JsonConvert.DeserializeObject<TradingStatus>(response);
+    }
+
     private async Task<string> Get(string url)
     {
         using var client = new HttpClient();

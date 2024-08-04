@@ -16,7 +16,7 @@ static class Program
         await tastyTradeClient.AuthenticateAsync(credentials);
         var accounts = await tastyTradeClient.GetAccounts();
         var accountNumber = accounts.Data.Items.FirstOrDefault().Account.AccountNumber;
-        var account = await tastyTradeClient.GetAccount(accountNumber);
-        Console.WriteLine(JsonConvert.SerializeObject(account));
+        var response = await tastyTradeClient.GetAccountStatus(accountNumber);
+        Console.WriteLine(JsonConvert.SerializeObject(response));
     }
 }
