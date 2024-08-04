@@ -13,8 +13,6 @@ public class TransactionsResponse
     public string Context { get; set; }
 }
 
-
-// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 public class TransactionsResponseData
 {
     [JsonProperty("items")]
