@@ -1,15 +1,21 @@
-using System;
+﻿using System;
 using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
 public partial class Account
 {
+    [JsonProperty("data")]
+    public AccountData Data { get; set; }
+
+    [JsonProperty("context")]
+    public string Context { get; set; }
+}
+
+public partial class AccountData
+{
     [JsonProperty("account-number")]
     public string AccountNumber { get; set; }
-
-    [JsonProperty("external-id")]
-    public string ExternalId { get; set; }
 
     [JsonProperty("opened-at")]
     public DateTimeOffset OpenedAt { get; set; }
@@ -44,14 +50,8 @@ public partial class Account
     [JsonProperty("is-foreign")]
     public bool IsForeign { get; set; }
 
-    [JsonProperty("funding-date")]
-    public DateTimeOffset FundingDate { get; set; }
-
     [JsonProperty("investment-objective")]
     public string InvestmentObjective { get; set; }
-
-    [JsonProperty("futures-account-purpose")]
-    public string FuturesAccountPurpose { get; set; }
 
     [JsonProperty("suitable-options-level")]
     public string SuitableOptionsLevel { get; set; }

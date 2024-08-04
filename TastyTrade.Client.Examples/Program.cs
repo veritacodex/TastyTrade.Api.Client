@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TastyTrade.Client.Model.Request;
@@ -13,8 +14,9 @@ static class Program
         var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.AuthenticateAsync(credentials);
-        var customer = await tastyTradeClient.GetCustomer();
-        var response = await tastyTradeClient.GetAccount("0");
-        Console.WriteLine(JsonConvert.SerializeObject(response));
+        var accounts = await tastyTradeClient.GetAccounts();
+        var accountNumber = accounts.Data.Items.FirstOrDefault().Account.AccountNumber;
+        var account = await tastyTradeClient.GetAccount(accountNumber);
+        Console.WriteLine(JsonConvert.SerializeObject(account));
     }
 }
