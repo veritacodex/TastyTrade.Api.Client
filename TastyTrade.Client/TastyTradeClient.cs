@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -28,14 +29,26 @@ public class TastyTradeClient
 
     public async Task<Customer> GetCustomer()
     {
-        var customerJson = await Get($"{_baseUrl}/customers/me");
-        return JsonConvert.DeserializeObject<Customer>(customerJson);
+        var response = await Get($"{_baseUrl}/customers/me");
+        return JsonConvert.DeserializeObject<Customer>(response);
+    }
+
+    public async Task<ApiQuoteToken> GetApiQuoteTokens()
+    {
+        var response = await Get($"{_baseUrl}/api-quote-tokens");
+        return JsonConvert.DeserializeObject<ApiQuoteToken>(response);
     }
 
     public async Task<Accounts> GetAccounts()
     {
-        var customerJson = await Get($"{_baseUrl}/customers/me/accounts");
-        return JsonConvert.DeserializeObject<Accounts>(customerJson);
+        var response = await Get($"{_baseUrl}/customers/me/accounts");
+        return JsonConvert.DeserializeObject<Accounts>(response);
+    }
+
+    public async Task<Account> GetAccount(string accountNumber)
+    {
+        var response = await Get($"{_baseUrl}/customers/me/accounts/{accountNumber}");
+        return JsonConvert.DeserializeObject<Account>(response);
     }
 
     private async Task<string> Get(string url)

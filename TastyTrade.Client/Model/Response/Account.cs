@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace TastyTrade.Client;
+namespace TastyTrade.Client.Model.Response;
 
 public partial class Account
 {
