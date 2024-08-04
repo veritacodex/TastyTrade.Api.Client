@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
-public class FuturesResponse
+public class FutureContractsResponse
 {
     [JsonProperty("data")]
     public FuturesData Data { get; set; }
@@ -15,5 +15,5 @@ public class FuturesResponse
 public class FuturesData
 {
     [JsonProperty("items")]
-    public List<FuturesContract> Items { get; set; }
+    public List<FutureContract> Items { get; set; }
 }

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
-public class FuturesContract
+public class FutureContract
 {
     [JsonProperty("symbol")]
     public string Symbol { get; set; }

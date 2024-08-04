@@ -65,20 +65,20 @@ public class TastyTradeClient
         var response = await Get($"{_baseUrl}/accounts/{accountNumber}/balance-snapshots");
         return JsonConvert.DeserializeObject<AccountBalanceResponse>(response);
     }
-    public async Task<FuturesResponse> GetAllFutures()
+    public async Task<FutureContractsResponse> GetAllFutures()
     {
         var response = await Get($"{_baseUrl}/instruments/futures");
-        return JsonConvert.DeserializeObject<FuturesResponse>(response);
+        return JsonConvert.DeserializeObject<FutureContractsResponse>(response);
     }
     public async Task<FutureOptionProductsResponse> GetAllFutureOptionProducts()
     {
         var response = await Get($"{_baseUrl}/instruments/future-option-products");
         return JsonConvert.DeserializeObject<FutureOptionProductsResponse>(response);
     }
-    public async Task<FuturesContractResponse> GetFuturesContract(string symbol)
+    public async Task<FutureContractResponse> GetFuturesContract(string symbol)
     {
         var response = await Get($"{_baseUrl}/instruments/futures/{symbol}");
-        return JsonConvert.DeserializeObject<FuturesContractResponse>(response);
+        return JsonConvert.DeserializeObject<FutureContractResponse>(response);
     }
     public async Task<OptionChainResponse> GetOptionChains(string symbol)
     {
