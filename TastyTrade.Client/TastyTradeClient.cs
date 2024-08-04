@@ -116,13 +116,4 @@ public class TastyTradeClient
         var response = await client.GetAsync(url);
         return await response.Content.ReadAsStringAsync();
     }
-
-    // private static async Task<string> Post(string url, string requestContent)
-    // {
-    //     using var client = new HttpClient();
-    //     using var content = new StringContent(requestContent);
-    //     content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-    //     var response = await client.PostAsync(url, content);
-    //     return await response.Content.ReadAsStringAsync();
-    // }
 }
