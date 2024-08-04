@@ -15,7 +15,7 @@ public class TastyTradeClient
     private string _userAgent;
     private string _baseUrl;
 
-    public async Task AuthenticateAsync(AuthorizationCredentials credentials)
+    public async Task Authenticate(AuthorizationCredentials credentials)
     {
         _userAgent = credentials.UserAgent;
         _baseUrl = credentials.ApiBaseUrl;
