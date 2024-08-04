@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
-public partial class Accounts
+public class AccountsResponse
 {
     [JsonProperty("data")]
     public AccountsData Data { get; set; }
@@ -12,13 +12,13 @@ public partial class Accounts
     public string Context { get; set; }
 }
 
-public partial class AccountsData
+public class AccountsData
 {
     [JsonProperty("items")]
     public AccountsDataItem[] Items { get; set; }
 }
 
-public partial class AccountsDataItem
+public class AccountsDataItem
 {
     [JsonProperty("account")]
     public AccountsDataItemAccount Account { get; set; }
@@ -27,7 +27,7 @@ public partial class AccountsDataItem
     public string AuthorityLevel { get; set; }
 }
 
-public partial class AccountsDataItemAccount
+public class AccountsDataItemAccount
 {
     [JsonProperty("account-number")]
     public string AccountNumber { get; set; }

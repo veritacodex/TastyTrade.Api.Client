@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
-public class Customer
+public class CustomerResponse
 {
     [JsonProperty("data")]
     public CustomerData Data { get; set; }
@@ -12,7 +12,7 @@ public class Customer
     public string Context { get; set; }
 }
 
-public partial class CustomerData
+public class CustomerData
 {
     [JsonProperty("id")]
     public string Id { get; set; }
@@ -93,7 +93,7 @@ public partial class CustomerData
     public Person Person { get; set; }
 }
 
-public partial class CustomerSuitability
+public class CustomerSuitability
 {
     [JsonProperty("id")]
     public long Id { get; set; }

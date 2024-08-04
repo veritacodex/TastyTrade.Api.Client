@@ -1,9 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace TastyTrade.Client;
+namespace TastyTrade.Client.Model.Response;
 
-public class TradingStatus
+public class TradingStatusResponse
 {
     [JsonProperty("data")]
     public TradingStatusData Data { get; set; }

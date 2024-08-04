@@ -1,22 +1,100 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
-public class Futures
+public class FuturesContract
 {
-    [JsonProperty("data")]
-    public FuturesData Data { get; set; }
+    [JsonProperty("symbol")]
+    public string Symbol { get; set; }
 
-    [JsonProperty("context")]
-    public string Context { get; set; }
-}
+    [JsonProperty("product-code")]
+    public string ProductCode { get; set; }
 
-public class FuturesData
-{
-    [JsonProperty("items")]
-    public List<FuturesDataItem> Items { get; set; }
+    [JsonProperty("contract-size")]
+    public string ContractSize { get; set; }
+
+    [JsonProperty("tick-size")]
+    public string TickSize { get; set; }
+
+    [JsonProperty("notional-multiplier")]
+    public string NotionalMultiplier { get; set; }
+
+    [JsonProperty("main-fraction")]
+    public string MainFraction { get; set; }
+
+    [JsonProperty("sub-fraction")]
+    public string SubFraction { get; set; }
+
+    [JsonProperty("display-factor")]
+    public string DisplayFactor { get; set; }
+
+    [JsonProperty("last-trade-date")]
+    public string LastTradeDate { get; set; }
+
+    [JsonProperty("expiration-date")]
+    public string ExpirationDate { get; set; }
+
+    [JsonProperty("closing-only-date")]
+    public string ClosingOnlyDate { get; set; }
+
+    [JsonProperty("active")]
+    public bool Active { get; set; }
+
+    [JsonProperty("active-month")]
+    public bool ActiveMonth { get; set; }
+
+    [JsonProperty("next-active-month")]
+    public bool NextActiveMonth { get; set; }
+
+    [JsonProperty("is-closing-only")]
+    public bool IsClosingOnly { get; set; }
+
+    [JsonProperty("stops-trading-at")]
+    public DateTime StopsTradingAt { get; set; }
+
+    [JsonProperty("expires-at")]
+    public DateTime ExpiresAt { get; set; }
+
+    [JsonProperty("product-group")]
+    public string ProductGroup { get; set; }
+
+    [JsonProperty("exchange")]
+    public string Exchange { get; set; }
+
+    [JsonProperty("roll-target-symbol")]
+    public string RollTargetSymbol { get; set; }
+
+    [JsonProperty("streamer-exchange-code")]
+    public string StreamerExchangeCode { get; set; }
+
+    [JsonProperty("streamer-symbol")]
+    public string StreamerSymbol { get; set; }
+
+    [JsonProperty("back-month-first-calendar-symbol")]
+    public bool BackMonthFirstCalendarSymbol { get; set; }
+
+    [JsonProperty("is-tradeable")]
+    public bool IsTradeable { get; set; }
+
+    [JsonProperty("future-etf-equivalent")]
+    public FutureEtfEquivalent FutureEtfEquivalent { get; set; }
+
+    [JsonProperty("future-product")]
+    public FutureProduct FutureProduct { get; set; }
+
+    [JsonProperty("tick-sizes")]
+    public List<TickSize> TickSizes { get; set; }
+
+    [JsonProperty("option-tick-sizes")]
+    public List<OptionTickSize> OptionTickSizes { get; set; }
+
+    [JsonProperty("spread-tick-sizes")]
+    public List<SpreadTickSize> SpreadTickSizes { get; set; }
+
+    [JsonProperty("first-notice-date")]
+    public string FirstNoticeDate { get; set; }
 }
 
 public class FutureEtfEquivalent
@@ -110,99 +188,6 @@ public class FutureProduct
 
     [JsonProperty("sub-tick")]
     public int? SubTick { get; set; }
-}
-
-public class FuturesDataItem
-{
-    [JsonProperty("symbol")]
-    public string Symbol { get; set; }
-
-    [JsonProperty("product-code")]
-    public string ProductCode { get; set; }
-
-    [JsonProperty("contract-size")]
-    public string ContractSize { get; set; }
-
-    [JsonProperty("tick-size")]
-    public string TickSize { get; set; }
-
-    [JsonProperty("notional-multiplier")]
-    public string NotionalMultiplier { get; set; }
-
-    [JsonProperty("main-fraction")]
-    public string MainFraction { get; set; }
-
-    [JsonProperty("sub-fraction")]
-    public string SubFraction { get; set; }
-
-    [JsonProperty("display-factor")]
-    public string DisplayFactor { get; set; }
-
-    [JsonProperty("last-trade-date")]
-    public string LastTradeDate { get; set; }
-
-    [JsonProperty("expiration-date")]
-    public string ExpirationDate { get; set; }
-
-    [JsonProperty("closing-only-date")]
-    public string ClosingOnlyDate { get; set; }
-
-    [JsonProperty("active")]
-    public bool Active { get; set; }
-
-    [JsonProperty("active-month")]
-    public bool ActiveMonth { get; set; }
-
-    [JsonProperty("next-active-month")]
-    public bool NextActiveMonth { get; set; }
-
-    [JsonProperty("is-closing-only")]
-    public bool IsClosingOnly { get; set; }
-
-    [JsonProperty("stops-trading-at")]
-    public DateTime StopsTradingAt { get; set; }
-
-    [JsonProperty("expires-at")]
-    public DateTime ExpiresAt { get; set; }
-
-    [JsonProperty("product-group")]
-    public string ProductGroup { get; set; }
-
-    [JsonProperty("exchange")]
-    public string Exchange { get; set; }
-
-    [JsonProperty("roll-target-symbol")]
-    public string RollTargetSymbol { get; set; }
-
-    [JsonProperty("streamer-exchange-code")]
-    public string StreamerExchangeCode { get; set; }
-
-    [JsonProperty("streamer-symbol")]
-    public string StreamerSymbol { get; set; }
-
-    [JsonProperty("back-month-first-calendar-symbol")]
-    public bool BackMonthFirstCalendarSymbol { get; set; }
-
-    [JsonProperty("is-tradeable")]
-    public bool IsTradeable { get; set; }
-
-    [JsonProperty("future-etf-equivalent")]
-    public FutureEtfEquivalent FutureEtfEquivalent { get; set; }
-
-    [JsonProperty("future-product")]
-    public FutureProduct FutureProduct { get; set; }
-
-    [JsonProperty("tick-sizes")]
-    public List<TickSize> TickSizes { get; set; }
-
-    [JsonProperty("option-tick-sizes")]
-    public List<OptionTickSize> OptionTickSizes { get; set; }
-
-    [JsonProperty("spread-tick-sizes")]
-    public List<SpreadTickSize> SpreadTickSizes { get; set; }
-
-    [JsonProperty("first-notice-date")]
-    public string FirstNoticeDate { get; set; }
 }
 
 public class OptionTickSize

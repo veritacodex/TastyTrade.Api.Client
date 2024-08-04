@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
-public partial class Address
+public class Address
 {
     [JsonProperty("street-one")]
     public string StreetOne { get; set; }

@@ -2,7 +2,7 @@
 
 namespace TastyTrade.Client.Model.Response;
 
-public partial class ApiQuoteToken
+public class ApiQuoteTokenResponse
 {
     [JsonProperty("data")]
     public ApiQuoteTokenData Data { get; set; }
@@ -11,7 +11,7 @@ public partial class ApiQuoteToken
     public string Context { get; set; }
 }
 
-public partial class ApiQuoteTokenData
+public class ApiQuoteTokenData
 {
     [JsonProperty("token")]
     public string Token { get; set; }

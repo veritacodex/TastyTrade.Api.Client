@@ -14,7 +14,7 @@ public class AuthenticationResponse
     public Error Error { get; set; }
 }
 
-public partial class AuthenticationResponseData
+public class AuthenticationResponseData
 {
     [JsonProperty("user")]
     public AuthenticationResponseUser User { get; set; }
@@ -26,7 +26,7 @@ public partial class AuthenticationResponseData
     public string RememberToken { get; set; }
 }
 
-public partial class AuthenticationResponseUser
+public class AuthenticationResponseUser
 {
     [JsonProperty("email")]
     public string Email { get; set; }

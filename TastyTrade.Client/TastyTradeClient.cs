@@ -26,50 +26,55 @@ public class TastyTradeClient
         var responseJson = await response.Content.ReadAsStringAsync();
         _authenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(responseJson);
     }
-    public async Task<Customer> GetCustomer()
+    public async Task<CustomerResponse> GetCustomer()
     {
         var response = await Get($"{_baseUrl}/customers/me");
-        return JsonConvert.DeserializeObject<Customer>(response);
+        return JsonConvert.DeserializeObject<CustomerResponse>(response);
     }
-    public async Task<ApiQuoteToken> GetApiQuoteTokens()
+    public async Task<ApiQuoteTokenResponse> GetApiQuoteTokens()
     {
         var response = await Get($"{_baseUrl}/api-quote-tokens");
-        return JsonConvert.DeserializeObject<ApiQuoteToken>(response);
+        return JsonConvert.DeserializeObject<ApiQuoteTokenResponse>(response);
     }
-    public async Task<Accounts> GetAccounts()
+    public async Task<AccountsResponse> GetAccounts()
     {
         var response = await Get($"{_baseUrl}/customers/me/accounts");
-        return JsonConvert.DeserializeObject<Accounts>(response);
+        return JsonConvert.DeserializeObject<AccountsResponse>(response);
     }
-    public async Task<Account> GetAccount(string accountNumber)
+    public async Task<AccountResponse> GetAccount(string accountNumber)
     {
         var response = await Get($"{_baseUrl}/customers/me/accounts/{accountNumber}");
-        return JsonConvert.DeserializeObject<Account>(response);
+        return JsonConvert.DeserializeObject<AccountResponse>(response);
     }
-    public async Task<TradingStatus> GetAccountStatus(string accountNumber)
+    public async Task<TradingStatusResponse> GetAccountStatus(string accountNumber)
     {
         var response = await Get($"{_baseUrl}/accounts/{accountNumber}/trading-status");
-        return JsonConvert.DeserializeObject<TradingStatus>(response);
+        return JsonConvert.DeserializeObject<TradingStatusResponse>(response);
     }
-    public async Task<AccountBalance> GetAccountBalance(string accountNumber)
+    public async Task<AccountBalanceResponse> GetAccountBalance(string accountNumber)
     {
         var response = await Get($"{_baseUrl}/accounts/{accountNumber}/balances");
-        return JsonConvert.DeserializeObject<AccountBalance>(response);
+        return JsonConvert.DeserializeObject<AccountBalanceResponse>(response);
     }
-    public async Task<AccountBalance> GetAccountBalance(string accountNumber, string currency)
+    public async Task<AccountBalanceResponse> GetAccountBalance(string accountNumber, string currency)
     {
         var response = await Get($"{_baseUrl}/accounts/{accountNumber}/balances/{currency}");
-        return JsonConvert.DeserializeObject<AccountBalance>(response);
+        return JsonConvert.DeserializeObject<AccountBalanceResponse>(response);
     }
-    public async Task<AccountBalance> GetAccountBalanceSnapshot(string accountNumber)
+    public async Task<AccountBalanceResponse> GetAccountBalanceSnapshot(string accountNumber)
     {
         var response = await Get($"{_baseUrl}/accounts/{accountNumber}/balance-snapshots");
-        return JsonConvert.DeserializeObject<AccountBalance>(response);
+        return JsonConvert.DeserializeObject<AccountBalanceResponse>(response);
     }
-    public async Task<Futures> GetFutures()
+    public async Task<FuturesResponse> GetAllFutures()
     {
         var response = await Get($"{_baseUrl}/instruments/futures");
-        return JsonConvert.DeserializeObject<Futures>(response);
+        return JsonConvert.DeserializeObject<FuturesResponse>(response);
+    }
+    public async Task<FuturesContractResponse> GetFuturesContract(string symbol)
+    {
+        var response = await Get($"{_baseUrl}/instruments/futures/{symbol}");
+        return JsonConvert.DeserializeObject<FuturesContractResponse>(response);
     }
     private async Task<string> Get(string url)
     {

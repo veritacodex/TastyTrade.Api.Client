@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -14,9 +13,7 @@ static class Program
         var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.AuthenticateAsync(credentials);
-        var accounts = await tastyTradeClient.GetAccounts();
-        var accountNumber = accounts.Data.Items.FirstOrDefault().Account.AccountNumber;
-        var response = await tastyTradeClient.GetFutures();
+        var response = await tastyTradeClient.GetFuturesContract("MESU4");
         await File.WriteAllTextAsync("./result.json", JsonConvert.SerializeObject(response));
     }
 }

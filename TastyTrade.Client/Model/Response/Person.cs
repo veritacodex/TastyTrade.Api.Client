@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace TastyTrade.Client.Model.Response;
 
-public partial class Person
+public class Person
 {
     [JsonProperty("external-id")]
     public string ExternalId { get; set; }
