@@ -1,16 +1,12 @@
 package client;
 
-import org.apache.maven.surefire.shared.io.FileUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import request.AuthenticationRequest;
 import response.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
