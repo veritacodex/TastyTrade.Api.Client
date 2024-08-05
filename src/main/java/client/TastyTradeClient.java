@@ -65,4 +65,9 @@ public class TastyTradeClient {
         String response = get(APIROOT + "/instruments/futures/");
         return FuturesResponse.fromJsonString(response);
     }
+
+    public FuturesSingleResponse getFutures(String symbol) throws IOException, ExecutionException, InterruptedException {
+        String response = get(APIROOT + "/instruments/futures/" + symbol);
+        return FuturesSingleResponse.fromJsonString(response);
+    }
 }

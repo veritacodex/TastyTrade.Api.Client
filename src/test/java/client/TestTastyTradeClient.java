@@ -4,10 +4,7 @@ import org.apache.maven.surefire.shared.io.FileUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import request.AuthenticationRequest;
-import response.AccountsResponse;
-import response.AuthenticationResponse;
-import response.CustomerResponse;
-import response.FuturesResponse;
+import response.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,5 +74,14 @@ class TestTastyTradeClient {
         client.authenticate(request);
         FuturesResponse futures = client.getAllFutures();
         assertNotEquals(0, futures.getData().getItems().length);
+    }
+
+    @Test
+    void TestFutures() throws IOException, ExecutionException, InterruptedException {
+        String symbol = "ESU4"; //look for the symbol at the CME group page
+        TastyTradeClient client = new TastyTradeClient();
+        client.authenticate(request);
+        FuturesSingleResponse response = client.getFutures(symbol);
+        assertNotNull(response.getData());
     }
 }
