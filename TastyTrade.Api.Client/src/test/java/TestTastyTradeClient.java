@@ -1,12 +1,12 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import request.AuthenticationRequest;
+import response.AuthenticationResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Logger;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTastyTradeClient {
     static Logger logger = Logger.getLogger(TestTastyTradeClient.class.getName());
@@ -28,7 +28,15 @@ public class TestTastyTradeClient {
     }
 
     @Test
-    public void testLucky() {
-        assertEquals(8, TastyTradeClient.getLucky());
+    public void testAuthentication() throws IOException {
+        AuthenticationRequest request = new AuthenticationRequest();
+        request.setLogin(properties.getProperty("login"));
+        request.setPassword(properties.getProperty("password"));
+        request.setUserAgent(properties.getProperty("user-agent"));
+        request.setAPIBaseURL(properties.getProperty("api-root"));
+        request.setRememberMe(true);
+        TastyTradeClient client = new TastyTradeClient();
+        AuthenticationResponse response = client.Authenticate(request);
+        
     }
 }
