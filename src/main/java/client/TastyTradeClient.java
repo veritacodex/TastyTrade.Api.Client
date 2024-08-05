@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 
 public class TastyTradeClient {
 
-    private final static String apiRoot = "https://api.cert.tastyworks.com";
+    private static final String APIROOT = "https://api.cert.tastyworks.com";
     private AuthenticationResponse authResponse;
     private String userAgent;
 
@@ -26,7 +26,7 @@ public class TastyTradeClient {
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try (client) {
             client.start();
-            SimpleHttpRequest postRequest = SimpleRequestBuilder.post(apiRoot + "/sessions")
+            SimpleHttpRequest postRequest = SimpleRequestBuilder.post(APIROOT + "/sessions")
                     .setHeader(HttpHeaders.USER_AGENT, userAgent)
                     .setBody(AuthenticationRequest.toJsonString(request), ContentType.APPLICATION_JSON)
                     .build();
@@ -53,7 +53,7 @@ public class TastyTradeClient {
     }
 
     public CustomerResponse getCustomer() throws IOException, ExecutionException, InterruptedException {
-        String response = get(apiRoot + "/customers/me");
+        String response = get(APIROOT + "/customers/me");
         return CustomerResponse.fromJsonString(response);
     }
 }

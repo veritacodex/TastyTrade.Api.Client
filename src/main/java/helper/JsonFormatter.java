@@ -9,6 +9,11 @@ import java.time.temporal.ChronoField;
 import java.time.OffsetTime;
 
 public class JsonFormatter {
+
+    private JsonFormatter() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
             .appendOptional(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
