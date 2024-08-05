@@ -1,14 +1,19 @@
 package client;
 
+import org.apache.maven.surefire.shared.io.FileUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import request.AuthenticationRequest;
 import response.AccountsResponse;
 import response.AuthenticationResponse;
 import response.CustomerResponse;
+import response.FuturesResponse;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
@@ -64,5 +69,13 @@ class TestTastyTradeClient {
         CustomerResponse response = client.getCustomer();
         AccountsResponse accounts = client.getAccounts(response.getData().getID());
         assertNotEquals(0, accounts.getData().getItems().length);
+    }
+
+    @Test
+    void TestAllFutures() throws IOException, ExecutionException, InterruptedException {
+        TastyTradeClient client = new TastyTradeClient();
+        client.authenticate(request);
+        FuturesResponse futures = client.getAllFutures();
+        assertNotEquals(0, futures.getData().getItems().length);
     }
 }

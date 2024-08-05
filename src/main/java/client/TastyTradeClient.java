@@ -8,9 +8,7 @@ import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpHeaders;
 import request.AuthenticationRequest;
-import response.AccountsResponse;
-import response.AuthenticationResponse;
-import response.CustomerResponse;
+import response.*;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -61,5 +59,10 @@ public class TastyTradeClient {
     public AccountsResponse getAccounts(String customerId) throws IOException, ExecutionException, InterruptedException {
         String response = get(APIROOT + "/customers/" + customerId + "/accounts");
         return AccountsResponse.fromJsonString(response);
+    }
+
+    public FuturesResponse getAllFutures() throws IOException, ExecutionException, InterruptedException {
+        String response = get(APIROOT + "/instruments/futures/");
+        return FuturesResponse.fromJsonString(response);
     }
 }
