@@ -42,15 +42,15 @@ public class TestTastyTradeClient {
     @Test
     public void TestAuthentication() throws IOException, ExecutionException, InterruptedException {
         TastyTradeClient client = new TastyTradeClient();
-        AuthenticationResponse response = client.Authenticate(request);
+        AuthenticationResponse response = client.authenticate(request);
         assertNotNull(response.getData().getSessionToken());
     }
 
     @Test
     public void TestCustomer() throws IOException, ExecutionException, InterruptedException {
         TastyTradeClient client = new TastyTradeClient();
-        client.Authenticate(request);
-        CustomerResponse response = client.GetCustomer();
+        client.authenticate(request);
+        CustomerResponse response = client.getCustomer();
         assertNotNull(response.getData().getAddress());
     }
 }

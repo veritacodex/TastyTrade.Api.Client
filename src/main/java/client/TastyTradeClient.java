@@ -17,16 +17,16 @@ import java.util.concurrent.Future;
 
 public class TastyTradeClient {
 
-    private final String API_ROOT = "https://api.cert.tastyworks.com";
+    private final String ApiRoot = "https://api.cert.tastyworks.com";
     private AuthenticationResponse authResponse;
     private String userAgent;
 
-    public AuthenticationResponse Authenticate(AuthenticationRequest request) throws IOException, ExecutionException, InterruptedException {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) throws IOException, ExecutionException, InterruptedException {
         userAgent = request.getUserAgent();
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try (client) {
             client.start();
-            SimpleHttpRequest postRequest = SimpleRequestBuilder.post(API_ROOT + "/sessions")
+            SimpleHttpRequest postRequest = SimpleRequestBuilder.post(ApiRoot + "/sessions")
                     .setHeader(HttpHeaders.USER_AGENT, userAgent)
                     .setBody(AuthenticationRequest.toJsonString(request), ContentType.APPLICATION_JSON)
                     .build();
@@ -37,7 +37,7 @@ public class TastyTradeClient {
         }
     }
 
-    public String Get(String uri) throws IOException, ExecutionException, InterruptedException {
+    public String get(String uri) throws IOException, ExecutionException, InterruptedException {
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         try(client){
             client.start();
@@ -52,8 +52,8 @@ public class TastyTradeClient {
         }
     }
 
-    public CustomerResponse GetCustomer() throws IOException, ExecutionException, InterruptedException {
-        String response = Get(API_ROOT + "/customers/me");
+    public CustomerResponse getCustomer() throws IOException, ExecutionException, InterruptedException {
+        String response = get(ApiRoot + "/customers/me");
         System.out.println((response));
         return CustomerResponse.fromJsonString(response);
     }
