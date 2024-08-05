@@ -70,4 +70,9 @@ public class TastyTradeClient {
         String response = get(APIROOT + "/instruments/futures/" + symbol);
         return FuturesSingleResponse.fromJsonString(response);
     }
+
+    public APIQuoteTokensResponse getApiQuoteTokens() throws IOException, ExecutionException, InterruptedException {
+        String response = get(APIROOT + "/api-quote-tokens");
+        return APIQuoteTokensResponse.fromJsonString(response);
+    }
 }

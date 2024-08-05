@@ -1,10 +1,15 @@
 package streamer;
 
 import client.TastyTradeClient;
+import com.dxfeed.api.DXEndpoint;
+import com.dxfeed.api.DXFeedSubscription;
+import com.dxfeed.event.market.Quote;
 import common.PropertiesHelper;
 import request.AuthenticationRequest;
+import response.APIQuoteTokensResponse;
 import response.AuthenticationResponse;
 
+import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
@@ -23,7 +28,20 @@ public class TestStreamerStandAlone {
         request.setRememberMe(true);
 
         TastyTradeClient client = new TastyTradeClient();
-        AuthenticationResponse response = client.authenticate(request);
+        client.authenticate(request);
+        APIQuoteTokensResponse response = client.getApiQuoteTokens();
 
+        try (DXEndpoint dxEndpoint = DXEndpoint.create()) {
+            dxEndpoint.connect(response.getData().getDxlinkURL() + "[login="+ response.getData().getToken() + "]");
+            try (DXFeedSubscription<Quote> subscription = dxEndpoint.getFeed().createSubscription(Quote.class)) {
+                subscription.addEventListener(events -> {
+                    for (Quote event : events) {
+                        System.out.println(event);
+                    }
+                });
+                subscription.addSymbols("AAPL");
+            }
+        }
+        Thread.sleep(Long.MAX_VALUE);
     }
 }
