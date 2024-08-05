@@ -399,4 +399,4 @@ FodyWeavers.xsd
 *.json
 .idea/
 credentials.properties
-*/target/*
+target/*
