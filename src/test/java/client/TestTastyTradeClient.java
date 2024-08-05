@@ -1,5 +1,6 @@
 package client;
 
+import common.PropertiesHelper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import request.AuthenticationRequest;
@@ -9,29 +10,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TestTastyTradeClient {
-    static Logger logger = Logger.getLogger(TestTastyTradeClient.class.getName());
     static Properties properties;
     private static AuthenticationRequest request;
 
     @BeforeAll
     static void Setup() {
-        String credentialsFile = "credentials.properties";
-        try (InputStream input = TestTastyTradeClient.class.getClassLoader().getResourceAsStream(credentialsFile)) {
-            properties = new Properties();
-            if (input == null) {
-                System.out.println("Unable to find " + credentialsFile);
-                return;
-            }
-            properties.load(input);
-        } catch (IOException ex) {
-            logger.severe(ex.getMessage());
-        }
+
+        properties = PropertiesHelper.getProperties("credentials.properties");
+        assert properties != null;
+
         request = new AuthenticationRequest();
         request.setLogin(properties.getProperty("login"));
         request.setPassword(properties.getProperty("password"));
@@ -78,6 +70,7 @@ class TestTastyTradeClient {
         TastyTradeClient client = new TastyTradeClient();
         client.authenticate(request);
         FuturesSingleResponse response = client.getFutures(symbol);
+        System.out.println(FuturesSingleResponse.toJsonString(response));
         assertNotNull(response.getData());
     }
 }
