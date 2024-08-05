@@ -7,9 +7,6 @@ import com.dxfeed.event.market.Quote;
 import common.PropertiesHelper;
 import request.AuthenticationRequest;
 import response.APIQuoteTokensResponse;
-import response.AuthenticationResponse;
-
-import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
@@ -31,8 +28,10 @@ public class TestStreamerStandAlone {
         client.authenticate(request);
         APIQuoteTokensResponse response = client.getApiQuoteTokens();
 
+        System.setProperty("dxfeed.experimental.dxlink.enable", "true");
+        System.setProperty("scheme", "ext:opt:sysprops,resource:dxlink.xml");
         try (DXEndpoint dxEndpoint = DXEndpoint.create()) {
-            dxEndpoint.connect(response.getData().getDxlinkURL() + "[login="+ response.getData().getToken() + "]");
+            dxEndpoint.connect("dxlink:wss://demo.dxfeed.com/dxlink-ws");
             try (DXFeedSubscription<Quote> subscription = dxEndpoint.getFeed().createSubscription(Quote.class)) {
                 subscription.addEventListener(events -> {
                     for (Quote event : events) {
