@@ -398,3 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 *.json
 .idea/
+credentials.properties
+*/target/*
