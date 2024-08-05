@@ -3,6 +3,7 @@ package client;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import request.AuthenticationRequest;
+import response.AccountsResponse;
 import response.AuthenticationResponse;
 import response.CustomerResponse;
 
@@ -12,6 +13,7 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TestTastyTradeClient {
@@ -53,5 +55,14 @@ class TestTastyTradeClient {
         client.authenticate(request);
         CustomerResponse response = client.getCustomer();
         assertNotNull(response.getData().getAddress());
+    }
+
+    @Test
+    void TestAccounts() throws IOException, ExecutionException, InterruptedException {
+        TastyTradeClient client = new TastyTradeClient();
+        client.authenticate(request);
+        CustomerResponse response = client.getCustomer();
+        AccountsResponse accounts = client.getAccounts(response.getData().getID());
+        assertNotEquals(0, accounts.getData().getItems().length);
     }
 }

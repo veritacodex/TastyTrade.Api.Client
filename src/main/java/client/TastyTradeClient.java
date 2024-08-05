@@ -8,6 +8,7 @@ import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpHeaders;
 import request.AuthenticationRequest;
+import response.AccountsResponse;
 import response.AuthenticationResponse;
 import response.CustomerResponse;
 
@@ -39,7 +40,7 @@ public class TastyTradeClient {
 
     public String get(String uri) throws IOException, ExecutionException, InterruptedException {
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
-        try(client){
+        try (client) {
             client.start();
             SimpleHttpRequest getRequest = SimpleRequestBuilder.get(uri)
                     .setHeader(HttpHeaders.USER_AGENT, userAgent)
@@ -55,5 +56,10 @@ public class TastyTradeClient {
     public CustomerResponse getCustomer() throws IOException, ExecutionException, InterruptedException {
         String response = get(APIROOT + "/customers/me");
         return CustomerResponse.fromJsonString(response);
+    }
+
+    public AccountsResponse getAccounts(String customerId) throws IOException, ExecutionException, InterruptedException {
+        String response = get(APIROOT + "/customers/" + customerId + "/accounts");
+        return AccountsResponse.fromJsonString(response);
     }
 }
