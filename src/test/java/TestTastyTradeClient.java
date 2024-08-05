@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TestTastyTradeClient {
+class TestTastyTradeClient {
     static Logger logger = Logger.getLogger(TestTastyTradeClient.class.getName());
     static Properties properties;
     private static AuthenticationRequest request;
@@ -40,14 +40,14 @@ public class TestTastyTradeClient {
     }
 
     @Test
-    public void TestAuthentication() throws IOException, ExecutionException, InterruptedException {
+    void TestAuthentication() throws IOException, ExecutionException, InterruptedException {
         TastyTradeClient client = new TastyTradeClient();
         AuthenticationResponse response = client.authenticate(request);
         assertNotNull(response.getData().getSessionToken());
     }
 
     @Test
-    public void TestCustomer() throws IOException, ExecutionException, InterruptedException {
+    void TestCustomer() throws IOException, ExecutionException, InterruptedException {
         TastyTradeClient client = new TastyTradeClient();
         client.authenticate(request);
         CustomerResponse response = client.getCustomer();
