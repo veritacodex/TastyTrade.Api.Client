@@ -6,7 +6,10 @@ import response.AuthenticationResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestTastyTradeClient {
     static Logger logger = Logger.getLogger(TestTastyTradeClient.class.getName());
@@ -28,7 +31,7 @@ public class TestTastyTradeClient {
     }
 
     @Test
-    public void testAuthentication() throws IOException {
+    public void testAuthentication() throws IOException, ExecutionException, InterruptedException {
         AuthenticationRequest request = new AuthenticationRequest();
         request.setLogin(properties.getProperty("login"));
         request.setPassword(properties.getProperty("password"));
@@ -37,6 +40,6 @@ public class TestTastyTradeClient {
         request.setRememberMe(true);
         TastyTradeClient client = new TastyTradeClient();
         AuthenticationResponse response = client.Authenticate(request);
-        
+        assertNotNull(response.getData().getSessionToken());
     }
 }

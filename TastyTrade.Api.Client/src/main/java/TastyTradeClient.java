@@ -1,36 +1,34 @@
+import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
+import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
+import org.apache.hc.client5.http.async.methods.SimpleRequestBuilder;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.impl.classic.BasicHttpClientResponseHandler;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
+import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
+import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import request.AuthenticationRequest;
 import response.AuthenticationResponse;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class TastyTradeClient {
 
     private final String API_ROOT = "https://api.cert.tastyworks.com";
     private final String SESSION_URI = "/sessions";
-    private final CloseableHttpClient closeableHttpClient;
 
-    public TastyTradeClient() {
-        this.closeableHttpClient = HttpClients.createDefault();
-    }
-
-    public AuthenticationResponse Authenticate(AuthenticationRequest request) throws IOException {
-
-        HttpPost httpPost = new HttpPost(API_ROOT + SESSION_URI);
-        StringEntity entity = new StringEntity(AuthenticationRequest.toJsonString(request));
-        httpPost.setEntity(entity);
-        httpPost.setHeader(HttpHeaders.ACCEPT, "application/json");
-        httpPost.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-        httpPost.setHeader(HttpHeaders.USER_AGENT, request.getUserAgent());
-        try (CloseableHttpResponse response = closeableHttpClient.execute(httpPost)) {
-            String responseString = new BasicHttpClientResponseHandler().handleResponse(response);
-            return AuthenticationResponse.fromJsonString(responseString);
+    public AuthenticationResponse Authenticate(AuthenticationRequest request) throws IOException, ExecutionException, InterruptedException {
+        CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
+        try (client) {
+            client.start();
+            SimpleHttpRequest postRequest = SimpleRequestBuilder.post(API_ROOT + SESSION_URI)
+                    .setBody(AuthenticationRequest.toJsonString(request), ContentType.APPLICATION_JSON)
+                    .build();
+            Future<SimpleHttpResponse> future = client.execute(postRequest, null);
+            SimpleHttpResponse response = future.get();
+            return AuthenticationResponse.fromJsonString(response.getBodyText());
         }
     }
 }
