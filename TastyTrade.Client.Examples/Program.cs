@@ -14,15 +14,17 @@ static class Program
 {
     static async Task Main()
     {
+        SystemProperty.SetProperty("dxfeed.experimental.dxlink.enable", "true");
+        SystemProperty.SetProperty("scheme", "ext:opt:sysprops,resource:dxlink.xml");
+        
         var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
         var apiQuoteTokens = await tastyTradeClient.GetApiQuoteTokens();
 
         var symbol = "AAPL";
-        SystemProperty.SetProperty("dxfeed.experimental.dxlink.enable", "true");
-        SystemProperty.SetProperty("scheme", "ext:opt:sysprops,resource:dxlink.xml");
-        var address = $"dxlink:wss://{apiQuoteTokens.Data.DxlinkUrl.Replace("wss://", string.Empty)}[login=dxlink:{apiQuoteTokens.Data.Token}]";
+        
+        var address = $"dxlink:{apiQuoteTokens.Data.DxlinkUrl}[login=dxlink:{apiQuoteTokens.Data.Token}]";
         var sub = DXEndpoint.GetInstance().Connect(address).GetFeed().CreateSubscription(typeof(Quote));
         sub.AddEventListener(events =>
         {
@@ -31,7 +33,7 @@ static class Program
                 Console.WriteLine(quote);
             }
         });
-        
+
         sub.AddSymbols(symbol);
         await Task.Delay(Timeout.Infinite);
     }
