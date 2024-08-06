@@ -9,7 +9,7 @@ using TastyTrade.Client.Model.Request;
 
 namespace TastyTrade.Client.Examples;
 
-public class FuturesStreamer
+public static class FuturesStreamer
 {
     public static async Task Run(){
 
