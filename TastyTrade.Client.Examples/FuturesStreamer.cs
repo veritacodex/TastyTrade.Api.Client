@@ -23,6 +23,7 @@ public class FuturesStreamer
         var apiQuoteTokens = await tastyTradeClient.GetApiQuoteTokens();
         var address = $"dxlink:{apiQuoteTokens.Data.DxlinkUrl}[login=dxlink:{apiQuoteTokens.Data.Token}]";
         var sub = DXEndpoint.GetInstance().Connect(address).GetFeed().CreateSubscription(typeof(Quote));
+        
         sub.AddEventListener(events =>
         {
             foreach (var ev in events)
