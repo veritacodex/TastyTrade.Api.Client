@@ -3,7 +3,9 @@
 
 In order to run test create a credentials.properties file within the resources folder with the following structure:
 
+```
 login=
 password=
 user-agent=
 api-root=
+```
