@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using DxFeed.Graal.Net;
@@ -16,25 +17,26 @@ static class Program
     {
         SystemProperty.SetProperty("dxfeed.experimental.dxlink.enable", "true");
         SystemProperty.SetProperty("scheme", "ext:opt:sysprops,resource:dxlink.xml");
-        
+
         var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
+        var es = await tastyTradeClient.GetFuturesContract("ESU4");
         var apiQuoteTokens = await tastyTradeClient.GetApiQuoteTokens();
-
-        var symbol = "AAPL";
-        
         var address = $"dxlink:{apiQuoteTokens.Data.DxlinkUrl}[login=dxlink:{apiQuoteTokens.Data.Token}]";
         var sub = DXEndpoint.GetInstance().Connect(address).GetFeed().CreateSubscription(typeof(Quote));
         sub.AddEventListener(events =>
         {
-            foreach (var quote in events)
+            foreach (var ev in events)
             {
-                Console.WriteLine(quote);
+                if (ev is Quote quote)
+                {
+                    Console.WriteLine($"BidPrice:{quote.BidPrice} AskPrice:{quote.AskPrice}");
+                }
             }
         });
 
-        sub.AddSymbols(symbol);
+        sub.AddSymbols(es.Contract.StreamerSymbol);
         await Task.Delay(Timeout.Infinite);
     }
 }
