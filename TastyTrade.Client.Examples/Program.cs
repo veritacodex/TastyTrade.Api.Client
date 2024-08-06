@@ -31,6 +31,7 @@ static class Program
                 Console.WriteLine(quote);
             }
         });
+        
         sub.AddSymbols(symbol);
         await Task.Delay(Timeout.Infinite);
     }
