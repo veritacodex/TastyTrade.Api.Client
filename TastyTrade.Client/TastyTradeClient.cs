@@ -88,6 +88,12 @@ public class TastyTradeClient
         var response = await Get($"{_baseUrl}/instruments/futures/{symbol}");
         return JsonConvert.DeserializeObject<FutureContractResponse>(response);
     }
+    public async Task<SearchResponse> Search(string symbol)
+    {
+        //this method seemed to be unavalaible at the time I added it.
+        var response = await Get($"{_baseUrl}/symbols/search/{symbol}");
+        return JsonConvert.DeserializeObject<SearchResponse>(response);
+    }
     public async Task<OptionChainResponse> GetOptionChains(string symbol)
     {
         var response = await Get($"{_baseUrl}/option-chains/{symbol}");
