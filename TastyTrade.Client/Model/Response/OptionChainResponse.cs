@@ -31,7 +31,7 @@ public class OptionChainResponseDataItem
     public bool Active { get; set; }
 
     [JsonProperty("strike-price")]
-    public string StrikePrice { get; set; }
+    public double StrikePrice { get; set; }
 
     [JsonProperty("root-symbol")]
     public string RootSymbol { get; set; }
