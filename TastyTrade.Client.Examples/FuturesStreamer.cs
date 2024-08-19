@@ -13,9 +13,6 @@ public static class FuturesStreamer
 {
     public static async Task Run(){
 
-        SystemProperty.SetProperty("dxfeed.experimental.dxlink.enable", "true");
-        SystemProperty.SetProperty("scheme", "ext:opt:sysprops,resource:dxlink.xml");
-
         var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);

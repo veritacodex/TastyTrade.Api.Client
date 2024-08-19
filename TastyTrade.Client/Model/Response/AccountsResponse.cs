@@ -83,4 +83,3 @@ public class AccountsDataItemAccount
     [JsonProperty("created-at")]
     public DateTimeOffset CreatedAt { get; set; }
 }
-
