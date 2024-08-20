@@ -1,7 +1,8 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using DxFeed.Graal.Net.Api;
+using DxFeed.Graal.Net.Events.Market;
 using Newtonsoft.Json;
 using TastyTrade.Client.Model.Helper;
 using TastyTrade.Client.Model.Request;
@@ -22,12 +23,20 @@ public static class OptionChainStreamer
         var optionChain = new OptionChain(underlying, optionChainsResponse);
         optionChain.SelectNextExpiration();
 
-        var expirationDates = optionChain.Expirations.Select(x => x.ExpirationDate).ToList();
-        foreach (var expiration in expirationDates)
-        {
-            Console.WriteLine(expiration);
-        }
+        var apiQuoteTokens = await tastyTradeClient.GetApiQuoteTokens();
+        var address = $"dxlink:{apiQuoteTokens.Data.DxlinkUrl}[login=dxlink:{apiQuoteTokens.Data.Token}]";
+        var sub = DXEndpoint.GetInstance().Connect(address).GetFeed().CreateSubscription(typeof(Quote));
 
-        //await File.WriteAllTextAsync("./optionChain.json", JsonConvert.SerializeObject(optionChain));
+        sub.AddEventListener(events =>
+        {
+            foreach (var ev in events)
+            {
+                if (ev is Quote quote)
+                {
+                    Console.WriteLine($"Symbol: {quote.EventSymbol} BidPrice:{quote.BidPrice} AskPrice:{quote.AskPrice}");
+                }
+            }
+        });
+        sub.AddSymbols(optionChain.Underlying.StreamerSymbol);
     }
 }
