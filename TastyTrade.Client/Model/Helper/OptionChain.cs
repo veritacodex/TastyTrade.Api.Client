@@ -32,8 +32,8 @@ public class OptionChain
                 expiration.Items.Add(new OptionChainExpirationItem
                 {
                     Strike = strike.Key,
-                    CallStreamerSymbol = strike.FirstOrDefault(x => x.OptionType == "C").StreamerSymbol,
-                    PutStreamerSymbol = strike.FirstOrDefault(x => x.OptionType == "P").StreamerSymbol
+                    CallStreamerSymbol = strike.First(x => x.OptionType == "C").StreamerSymbol,
+                    PutStreamerSymbol = strike.First(x => x.OptionType == "P").StreamerSymbol
                 });
             }
             Expirations.Add(expiration);
