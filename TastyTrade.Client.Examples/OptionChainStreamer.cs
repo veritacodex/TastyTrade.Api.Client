@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TastyTrade.Client.Model.Helper;
@@ -13,10 +15,19 @@ public static class OptionChainStreamer
         var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
+
         string symbol = "SPY";
         var underlying = await tastyTradeClient.GetEquity(symbol);
-        var optionChainsResponse = await tastyTradeClient.GetOptionChains("SPY");
+        var optionChainsResponse = await tastyTradeClient.GetOptionChains(symbol);
         var optionChain = new OptionChain(underlying, optionChainsResponse);
-        await File.WriteAllTextAsync("./optionChain.json", JsonConvert.SerializeObject(optionChain));
+        optionChain.SelectNextExpiration();
+
+        var expirationDates = optionChain.Expirations.Select(x => x.ExpirationDate).ToList();
+        foreach (var expiration in expirationDates)
+        {
+            Console.WriteLine(expiration);
+        }
+
+        //await File.WriteAllTextAsync("./optionChain.json", JsonConvert.SerializeObject(optionChain));
     }
 }

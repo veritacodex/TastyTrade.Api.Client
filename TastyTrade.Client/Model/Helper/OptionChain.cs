@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using TastyTrade.Client.Model.Response;
 
@@ -6,12 +8,13 @@ namespace TastyTrade.Client.Model.Helper;
 
 public class OptionChain
 {
-    public List<OptionChainExpiration> Expirations { get; }
+    public List<OptionChainExpiration> Expirations { get; internal set; }
     public OptionChainUnderlying Underlying { get; set; }
     public OptionChain(EquityResponse underlying, OptionChainResponse response)
     {
         Expirations = [];
-        Underlying = new OptionChainUnderlying{
+        Underlying = new OptionChainUnderlying
+        {
             Symbol = underlying.Data.Symbol,
             StreamerSymbol = underlying.Data.StreamerSymbol
         };
@@ -36,6 +39,23 @@ public class OptionChain
             Expirations.Add(expiration);
         }
     }
+
+    public void SelectNextExpiration()
+    {
+        var nextExpirationDate = GetNextExpirationDate();
+        Expirations = Expirations.Where(x=> x.ExpirationDate == nextExpirationDate).ToList();
+    }
+
+    private string GetNextExpirationDate()
+    {
+        foreach (var expiration in Expirations)
+        {
+            var expirationDate = DateTime.ParseExact(expiration.ExpirationDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            if ((expirationDate - DateTime.Now).Days > 0)
+                return expiration.ExpirationDate;
+        }
+        return null;
+    }
 }
 
 public class OptionChainUnderlying
@@ -43,7 +63,7 @@ public class OptionChainUnderlying
     public string StreamerSymbol { get; internal set; }
     public string Symbol { get; internal set; }
     public double Bid { get; set; }
-    public double Ask { get; set; }    
+    public double Ask { get; set; }
 }
 
 public class OptionChainExpiration
