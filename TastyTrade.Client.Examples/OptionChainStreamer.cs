@@ -27,23 +27,21 @@ public static class OptionChainStreamer
         _optionChain.SelectNextExpiration();
         var timer = new Timer(TimerCallback, null, 0, 1000);
 
-        // var apiQuoteTokens = await tastyTradeClient.GetApiQuoteTokens();
-        // var address = $"dxlink:{apiQuoteTokens.Data.DxlinkUrl}[login=dxlink:{apiQuoteTokens.Data.Token}]";
-        // var sub = DXEndpoint.GetInstance().Connect(address).GetFeed().CreateSubscription(typeof(Quote));
+        var apiQuoteTokens = await tastyTradeClient.GetApiQuoteTokens();
+        var address = $"dxlink:{apiQuoteTokens.Data.DxlinkUrl}[login=dxlink:{apiQuoteTokens.Data.Token}]";
+        var sub = DXEndpoint.GetInstance().Connect(address).GetFeed().CreateSubscription(typeof(Quote));
 
-        // sub.AddEventListener(events =>
-        // {
-        //     foreach (var ev in events)
-        //     {
-        //         if (ev is Quote quote)
-        //         {
-        //             Console.WriteLine($"Symbol:{quote.EventSymbol} BidPrice:{quote.BidPrice} AskPrice:{quote.AskPrice}");
-        //         }
-        //     }
-        // });
-        // sub.AddSymbols(optionChain.Underlying.StreamerSymbol);
-
-        
+        sub.AddEventListener(events =>
+        {
+            foreach (var ev in events)
+            {
+                if (ev is Quote quote)
+                {
+                    _optionChain.UpdateQuote((Quote)ev);
+                }
+            }
+        });
+        sub.AddSymbols(_optionChain.Underlying.StreamerSymbol);
     }
 
     private static void TimerCallback(object state)

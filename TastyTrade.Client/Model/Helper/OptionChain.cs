@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using DxFeed.Graal.Net.Events.Market;
 using TastyTrade.Client.Model.Response;
 
 namespace TastyTrade.Client.Model.Helper;
@@ -49,21 +50,32 @@ public class OptionChain
 
     private string GetNextExpirationDate()
     {
-        return Expirations.Find(x => 
+        return Expirations.Find(x =>
             (DateTime.ParseExact(x.ExpirationDate, "yyyy-MM-dd", CultureInfo.InvariantCulture) - DateTime.Now).Days > 0)
             .ExpirationDate;
     }
-    public override string ToString(){
+    public override string ToString()
+    {
         var output = new StringBuilder();
         output.AppendLine($"{DateTime.Now} -- Underlying:{Underlying.Symbol} -- Bid:{Underlying.Bid} Ask:{Underlying.Ask}");
         output.AppendLine("-----------------------------------------------------------------------------");
         output.AppendLine("\t   CALL\t\t\tStrike\t\t   PUT");
         output.AppendLine("-----------------------------------------------------------------------------");
         output.AppendLine("\tBid\tAsk\t\t\t\tBid\tAsk");
-        foreach(var item in Expirations.First().Items.Take(4)){
+        foreach (var item in Expirations.First().Items.Take(4))
+        {
             output.AppendLine($"\t{item.CallBid}\t{item.CallAsk}\t\t{item.Strike}\t\t{item.PutBid}\t{item.PutAsk}");
         }
         return output.ToString();
+    }
+
+    public void UpdateQuote(Quote ev)
+    {
+        if (Underlying.Symbol == ev.EventSymbol)
+        {
+            Underlying.Bid = ev.BidPrice;
+            Underlying.Ask = ev.AskPrice;
+        }
     }
 }
 
