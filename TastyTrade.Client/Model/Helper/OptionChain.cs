@@ -7,9 +7,14 @@ namespace TastyTrade.Client.Model.Helper;
 public class OptionChain
 {
     public List<OptionChainExpiration> Expirations { get; }
-    public OptionChain(OptionChainResponse response)
+    public OptionChainUnderlying Underlying { get; set; }
+    public OptionChain(EquityResponse underlying, OptionChainResponse response)
     {
         Expirations = [];
+        Underlying = new OptionChainUnderlying{
+            Symbol = underlying.Data.Symbol,
+            StreamerSymbol = underlying.Data.StreamerSymbol
+        };
         var expirations = response.Data.Items.Where(x => x.Active).GroupBy(x => x.ExpirationDate).OrderBy(x => x.Key);
         foreach (var item in expirations)
         {
@@ -24,13 +29,21 @@ public class OptionChain
                 expiration.Items.Add(new OptionChainExpirationItem
                 {
                     Strike = strike.Key,
-                    CallStreamerSymbol = strike.FirstOrDefault(x=> x.OptionType == "C").StreamerSymbol,
-                    PutStreamerSymbol = strike.FirstOrDefault(x=> x.OptionType == "P").StreamerSymbol
+                    CallStreamerSymbol = strike.FirstOrDefault(x => x.OptionType == "C").StreamerSymbol,
+                    PutStreamerSymbol = strike.FirstOrDefault(x => x.OptionType == "P").StreamerSymbol
                 });
             }
             Expirations.Add(expiration);
         }
     }
+}
+
+public class OptionChainUnderlying
+{
+    public string StreamerSymbol { get; internal set; }
+    public string Symbol { get; internal set; }
+    public double Bid { get; set; }
+    public double Ask { get; set; }    
 }
 
 public class OptionChainExpiration
