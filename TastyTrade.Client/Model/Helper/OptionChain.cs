@@ -48,7 +48,7 @@ public class OptionChain
 
     private string GetNextExpirationDate()
     {
-        return Expirations.FirstOrDefault(x => 
+        return Expirations.Find(x => 
             (DateTime.ParseExact(x.ExpirationDate, "yyyy-MM-dd", CultureInfo.InvariantCulture) - DateTime.Now).Days > 0)
             .ExpirationDate;
     }

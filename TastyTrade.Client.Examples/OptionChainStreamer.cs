@@ -33,7 +33,7 @@ public static class OptionChainStreamer
             {
                 if (ev is Quote quote)
                 {
-                    Console.WriteLine($"Symbol: {quote.EventSymbol} BidPrice:{quote.BidPrice} AskPrice:{quote.AskPrice}");
+                    Console.WriteLine($"Symbol:{quote.EventSymbol} BidPrice:{quote.BidPrice} AskPrice:{quote.AskPrice}");
                 }
             }
         });
