@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using TastyTrade.Client.Model.Response;
 
 namespace TastyTrade.Client.Model.Helper;
@@ -51,6 +52,18 @@ public class OptionChain
         return Expirations.Find(x => 
             (DateTime.ParseExact(x.ExpirationDate, "yyyy-MM-dd", CultureInfo.InvariantCulture) - DateTime.Now).Days > 0)
             .ExpirationDate;
+    }
+    public override string ToString(){
+        var output = new StringBuilder();
+        output.AppendLine($"{DateTime.Now} -- Underlying:{Underlying.Symbol} -- Bid:{Underlying.Bid} Ask:{Underlying.Ask}");
+        output.AppendLine("-----------------------------------------------------------------------------");
+        output.AppendLine("\t   CALL\t\t\tStrike\t\t   PUT");
+        output.AppendLine("-----------------------------------------------------------------------------");
+        output.AppendLine("\tBid\tAsk\t\t\t\tBid\tAsk");
+        foreach(var item in Expirations.First().Items.Take(4)){
+            output.AppendLine($"\t{item.CallBid}\t{item.CallAsk}\t\t{item.Strike}\t\t{item.PutBid}\t{item.PutAsk}");
+        }
+        return output.ToString();
     }
 }
 
