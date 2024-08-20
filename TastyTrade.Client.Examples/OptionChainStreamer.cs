@@ -1,9 +1,11 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DxFeed.Graal.Net.Api;
 using DxFeed.Graal.Net.Events.Market;
+using DxFeed.Graal.Net.Events.Options;
 using Newtonsoft.Json;
 using TastyTrade.Client.Model.Helper;
 using TastyTrade.Client.Model.Request;
@@ -23,15 +25,18 @@ public static class OptionChainStreamer
         string symbol = "SPY";
         var underlying = await tastyTradeClient.GetEquity(symbol);
         var optionChainsResponse = await tastyTradeClient.GetOptionChains(symbol);
+
         _optionChain = new OptionChain(underlying, optionChainsResponse);
+
         _optionChain.SelectNextExpiration();
         var timer = new Timer(TimerCallback, null, 0, 1000);
 
         var apiQuoteTokens = await tastyTradeClient.GetApiQuoteTokens();
         var address = $"dxlink:{apiQuoteTokens.Data.DxlinkUrl}[login=dxlink:{apiQuoteTokens.Data.Token}]";
-        var sub = DXEndpoint.GetInstance().Connect(address).GetFeed().CreateSubscription(typeof(Quote));
+        var feed = DXEndpoint.GetInstance().Connect(address).GetFeed();
+        var quotes = feed.CreateSubscription(typeof(Quote));
 
-        sub.AddEventListener(events =>
+        quotes.AddEventListener(events =>
         {
             foreach (var ev in events)
             {
@@ -41,7 +46,8 @@ public static class OptionChainStreamer
                 }
             }
         });
-        sub.AddSymbols(_optionChain.Underlying.StreamerSymbol);
+        quotes.AddSymbols(_optionChain.Underlying.StreamerSymbol);
+        quotes.AddSymbols(_optionChain.Expirations.First().Items.First(x => x.Strike == 465).CallStreamerSymbol);
     }
 
     private static void TimerCallback(object state)
