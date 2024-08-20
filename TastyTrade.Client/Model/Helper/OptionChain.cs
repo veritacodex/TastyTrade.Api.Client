@@ -43,18 +43,14 @@ public class OptionChain
     public void SelectNextExpiration()
     {
         var nextExpirationDate = GetNextExpirationDate();
-        Expirations = Expirations.Where(x=> x.ExpirationDate == nextExpirationDate).ToList();
+        Expirations = Expirations.Where(x => x.ExpirationDate == nextExpirationDate).ToList();
     }
 
     private string GetNextExpirationDate()
     {
-        foreach (var expiration in Expirations)
-        {
-            var expirationDate = DateTime.ParseExact(expiration.ExpirationDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            if ((expirationDate - DateTime.Now).Days > 0)
-                return expiration.ExpirationDate;
-        }
-        return null;
+        return Expirations.FirstOrDefault(x => 
+            (DateTime.ParseExact(x.ExpirationDate, "yyyy-MM-dd", CultureInfo.InvariantCulture) - DateTime.Now).Days > 0)
+            .ExpirationDate;
     }
 }
 
