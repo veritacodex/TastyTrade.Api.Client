@@ -88,7 +88,7 @@ public class FutureContract
     public List<TickSize> TickSizes { get; set; }
 
     [JsonProperty("option-tick-sizes")]
-    public List<OptionTickSize> OptionTickSizes { get; set; }
+    public List<TickSize> OptionTickSizes { get; set; }
 
     [JsonProperty("spread-tick-sizes")]
     public List<SpreadTickSize> SpreadTickSizes { get; set; }
@@ -190,15 +190,6 @@ public class FutureProduct
     public int? SubTick { get; set; }
 }
 
-public class OptionTickSize
-{
-    [JsonProperty("value")]
-    public string Value { get; set; }
-
-    [JsonProperty("threshold")]
-    public string Threshold { get; set; }
-}
-
 public class Roll
 {
     [JsonProperty("name")]
@@ -224,10 +215,4 @@ public class SpreadTickSize
 
     [JsonProperty("symbol")]
     public string Symbol { get; set; }
-}
-
-public class TickSize
-{
-    [JsonProperty("value")]
-    public string Value { get; set; }
 }

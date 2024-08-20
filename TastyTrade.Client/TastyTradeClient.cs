@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -113,6 +112,11 @@ public class TastyTradeClient
     {
         var response = await Get($"{_baseUrl}/accounts/{accountNumber}/transactions");
         return JsonConvert.DeserializeObject<TransactionsResponse>(response);
+    }
+    public async Task<EquityResponse> GetEquity(string symbol)
+    {
+        var response = await Get($"{_baseUrl}/instruments/equities/{symbol}");
+        return JsonConvert.DeserializeObject<EquityResponse>(response);
     }
     private async Task<string> Get(string url)
     {
