@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using DxFeed.Graal.Net.Events.Market;
+using DxFeed.Graal.Net.Events.Options;
 using TastyTrade.Client.Model.Response;
 
 namespace TastyTrade.Client.Model.Helper;
@@ -11,6 +12,7 @@ public class OptionChain
 {
     public List<OptionChainExpiration> Expirations { get; internal set; }
     public OptionChainUnderlying Underlying { get; set; }
+
     public OptionChain(EquityResponse underlying, OptionChainResponse response)
     {
         Expirations = [];
@@ -19,6 +21,23 @@ public class OptionChain
             Symbol = underlying.Data.Symbol,
             StreamerSymbol = underlying.Data.StreamerSymbol
         };
+        SetExpirations(response);
+    }
+
+    public OptionChain(FutureContractResponse underlying, OptionChainResponse response)
+    {
+        Expirations = [];
+        Underlying = new OptionChainUnderlying
+        {
+            Symbol = underlying.Contract.Symbol,
+            StreamerSymbol = underlying.Contract.StreamerSymbol
+        };
+
+        SetExpirations(response);
+    }
+
+    private void SetExpirations(OptionChainResponse response)
+    {
         var expirations = response.Data.Items.Where(x => x.Active).GroupBy(x => x.ExpirationDate).OrderBy(x => x.Key);
         foreach (var item in expirations)
         {
@@ -33,8 +52,14 @@ public class OptionChain
                 expiration.Items.Add(new OptionChainExpirationItem
                 {
                     Strike = strike.Key,
-                    CallStreamerSymbol = strike.First(x => x.OptionType == "C").StreamerSymbol,
-                    PutStreamerSymbol = strike.First(x => x.OptionType == "P").StreamerSymbol
+                    Call = new OptionChainItemSide
+                    {
+                        StreamerSymbol = strike.First(x => x.OptionType == "C").StreamerSymbol
+                    },
+                    Put = new OptionChainItemSide
+                    {
+                        StreamerSymbol = strike.First(x => x.OptionType == "P").StreamerSymbol
+                    }
                 });
             }
             Expirations.Add(expiration);
@@ -54,12 +79,12 @@ public class OptionChain
             .ExpirationDate;
     }
 
-    public void UpdateQuote(Quote ev)
+    public void UpdateQuote(Quote quote)
     {
-        if (Underlying.Symbol == ev.EventSymbol)
+        if (Underlying.Symbol == quote.EventSymbol)
         {
-            Underlying.Bid = ev.BidPrice;
-            Underlying.Ask = ev.AskPrice;
+            Underlying.Bid = quote.BidPrice;
+            Underlying.Ask = quote.AskPrice;
         }
         else
         {
@@ -67,17 +92,43 @@ public class OptionChain
             {
                 foreach (var item in expiration.Items)
                 {
-                    if (item.CallStreamerSymbol == ev.EventSymbol)
+                    if (item.Call.StreamerSymbol == quote.EventSymbol)
                     {
-                        item.CallBid = ev.BidPrice;
-                        item.CallAsk = ev.AskPrice;
+                        item.Call.Bid = quote.BidPrice;
+                        item.Call.Ask = quote.AskPrice;
                     }
-                    if (item.PutStreamerSymbol == ev.EventSymbol)
+                    else if (item.Put.StreamerSymbol == quote.EventSymbol)
                     {
-                        item.PutBid = ev.BidPrice;
-                        item.PutAsk = ev.AskPrice;
+                        item.Put.Bid = quote.BidPrice;
+                        item.Put.Ask = quote.AskPrice;
                     }
                     item.IsAtTheMoney = item.Strike > Underlying.Bid && item.Strike < Underlying.Ask;
+                }
+            }
+        }
+    }
+
+    public void UpdateGreeks(Greeks greeks)
+    {
+        foreach (var expiration in Expirations)
+        {
+            foreach (var item in expiration.Items)
+            {
+                if (item.Call.StreamerSymbol == greeks.EventSymbol)
+                {
+                    item.Call.Delta = greeks.Delta;
+                    item.Call.Gamma = greeks.Gamma;
+                    item.Call.Theta = greeks.Theta;
+                    item.Call.Rho = greeks.Rho;
+                    item.Call.Vega = greeks.Vega;
+                }
+                else if (item.Put.StreamerSymbol == greeks.EventSymbol)
+                {
+                    item.Call.Delta = greeks.Delta;
+                    item.Call.Gamma = greeks.Gamma;
+                    item.Call.Theta = greeks.Theta;
+                    item.Call.Rho = greeks.Rho;
+                    item.Call.Vega = greeks.Vega;
                 }
             }
         }
@@ -101,11 +152,19 @@ public class OptionChainExpiration
 public class OptionChainExpirationItem
 {
     public double Strike { get; set; }
-    public string CallStreamerSymbol { get; set; }
-    public double CallBid { get; set; }
-    public double CallAsk { get; set; }
-    public string PutStreamerSymbol { get; set; }
-    public double PutBid { get; set; }
-    public double PutAsk { get; set; }
+    public OptionChainItemSide Call { get; set; }
+    public OptionChainItemSide Put { get; set; }
     public bool IsAtTheMoney { get; set; }
+}
+
+public class OptionChainItemSide
+{
+    public string StreamerSymbol { get; set; }
+    public double Bid { get; internal set; }
+    public double Ask { get; internal set; }
+    public double Delta { get; internal set; }
+    public double Gamma { get; internal set; }
+    public double Theta { get; internal set; }
+    public double Rho { get; internal set; }
+    public double Vega { get; internal set; }
 }
