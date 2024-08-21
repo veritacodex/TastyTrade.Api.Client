@@ -41,6 +41,7 @@ public static class OptionChainStreamer
                 }
             }
         });
+        
         quotes.AddSymbols(_optionChain.Underlying.StreamerSymbol);
         foreach (var expiration in _optionChain.Expirations.First().Items)
         {
