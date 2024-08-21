@@ -32,7 +32,6 @@ public class OptionChain
             Symbol = underlying.Contract.Symbol,
             StreamerSymbol = underlying.Contract.StreamerSymbol
         };
-
         SetExpirations(response);
     }
 
@@ -124,11 +123,11 @@ public class OptionChain
                 }
                 else if (item.Put.StreamerSymbol == greeks.EventSymbol)
                 {
-                    item.Call.Delta = greeks.Delta;
-                    item.Call.Gamma = greeks.Gamma;
-                    item.Call.Theta = greeks.Theta;
-                    item.Call.Rho = greeks.Rho;
-                    item.Call.Vega = greeks.Vega;
+                    item.Put.Delta = greeks.Delta;
+                    item.Put.Gamma = greeks.Gamma;
+                    item.Put.Theta = greeks.Theta;
+                    item.Put.Rho = greeks.Rho;
+                    item.Put.Vega = greeks.Vega;
                 }
             }
         }
