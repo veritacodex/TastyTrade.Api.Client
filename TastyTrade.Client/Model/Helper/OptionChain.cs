@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using DxFeed.Graal.Net.Events.Market;
-using DxFeed.Graal.Net.Events.Options;
 using TastyTrade.Client.Model.Response;
 
 namespace TastyTrade.Client.Model.Helper;
 
 public class OptionChain
 {
+    public DateTime UpdatedOn { get; internal set;}
     public List<OptionChainExpiration> Expirations { get; internal set; }
-    public OptionChainUnderlying Underlying { get; set; }
+    public OptionChainUnderlying Underlying { get; internal set; }
 
     public OptionChain(EquityResponse underlying, OptionChainResponse response)
     {
@@ -102,32 +102,6 @@ public class OptionChain
                         item.Put.Ask = quote.AskPrice;
                     }
                     item.IsAtTheMoney = item.Strike > Underlying.Bid && item.Strike < Underlying.Ask;
-                }
-            }
-        }
-    }
-
-    public void UpdateGreeks(Greeks greeks)
-    {
-        foreach (var expiration in Expirations)
-        {
-            foreach (var item in expiration.Items)
-            {
-                if (item.Call.StreamerSymbol == greeks.EventSymbol)
-                {
-                    item.Call.Delta = greeks.Delta;
-                    item.Call.Gamma = greeks.Gamma;
-                    item.Call.Theta = greeks.Theta;
-                    item.Call.Rho = greeks.Rho;
-                    item.Call.Vega = greeks.Vega;
-                }
-                else if (item.Put.StreamerSymbol == greeks.EventSymbol)
-                {
-                    item.Put.Delta = greeks.Delta;
-                    item.Put.Gamma = greeks.Gamma;
-                    item.Put.Theta = greeks.Theta;
-                    item.Put.Rho = greeks.Rho;
-                    item.Put.Vega = greeks.Vega;
                 }
             }
         }
