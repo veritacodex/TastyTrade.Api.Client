@@ -80,6 +80,8 @@ public class OptionChain
 
     public void UpdateQuote(Quote quote)
     {
+        UpdatedOn = DateTime.Now;
+        
         if (Underlying.Symbol == quote.EventSymbol)
         {
             Underlying.Bid = quote.BidPrice;
