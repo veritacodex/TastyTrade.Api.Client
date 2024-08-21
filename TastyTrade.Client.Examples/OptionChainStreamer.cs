@@ -37,12 +37,12 @@ public static class OptionChainStreamer
             {
                 if (ev is Quote quote)
                 {
-                    _optionChain.UpdateQuote((Quote)ev);
+                    _optionChain.UpdateQuote(quote);
                 }
             }
         });
         quotes.AddSymbols(_optionChain.Underlying.StreamerSymbol);
-        foreach (var expiration in _optionChain.Expirations.First().Items)
+        foreach (var expiration in _optionChain.Expirations[0].Items)
         {
             quotes.AddSymbols(expiration.Call.StreamerSymbol);
             quotes.AddSymbols(expiration.Put.StreamerSymbol);
