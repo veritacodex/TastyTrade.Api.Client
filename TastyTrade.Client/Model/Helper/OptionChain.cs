@@ -9,14 +9,20 @@ namespace TastyTrade.Client.Model.Helper;
 
 public class OptionChain
 {
-    public DateTime UpdatedOn { get; internal set;}
+    public string UpdatedOn { get; internal set; }
     public List<OptionChainExpiration> Expirations { get; internal set; }
     public OptionChainUnderlying Underlying { get; internal set; }
+    public OptionChainUnderlying PreviousUnderlying { get; internal set; }
 
     public OptionChain(EquityResponse underlying, OptionChainResponse response)
     {
         Expirations = [];
         Underlying = new OptionChainUnderlying
+        {
+            Symbol = underlying.Data.Symbol,
+            StreamerSymbol = underlying.Data.StreamerSymbol
+        };
+        PreviousUnderlying = new OptionChainUnderlying
         {
             Symbol = underlying.Data.Symbol,
             StreamerSymbol = underlying.Data.StreamerSymbol
@@ -28,6 +34,11 @@ public class OptionChain
     {
         Expirations = [];
         Underlying = new OptionChainUnderlying
+        {
+            Symbol = underlying.Contract.Symbol,
+            StreamerSymbol = underlying.Contract.StreamerSymbol
+        };
+        PreviousUnderlying = new OptionChainUnderlying
         {
             Symbol = underlying.Contract.Symbol,
             StreamerSymbol = underlying.Contract.StreamerSymbol
@@ -80,10 +91,13 @@ public class OptionChain
 
     public void UpdateQuote(Quote quote)
     {
-        UpdatedOn = DateTime.Now;
-        
+        UpdatedOn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
         if (Underlying.Symbol == quote.EventSymbol)
         {
+            PreviousUnderlying.Bid = Underlying.Bid;
+            PreviousUnderlying.Ask = Underlying.Ask;
+
             Underlying.Bid = quote.BidPrice;
             Underlying.Ask = quote.AskPrice;
         }
@@ -95,15 +109,19 @@ public class OptionChain
                 {
                     if (item.Call.StreamerSymbol == quote.EventSymbol)
                     {
+                        if (quote.BidPrice != item.Call.Bid && Underlying.Bid != PreviousUnderlying.Bid)
+                            item.Call.Delta = (quote.BidPrice - item.Call.Bid) / (Underlying.Bid - PreviousUnderlying.Bid);
                         item.Call.Bid = quote.BidPrice;
                         item.Call.Ask = quote.AskPrice;
                     }
                     else if (item.Put.StreamerSymbol == quote.EventSymbol)
                     {
+                        if (quote.BidPrice != item.Put.Bid && Underlying.Bid != PreviousUnderlying.Bid)
+                            item.Put.Delta = (quote.BidPrice - item.Put.Bid) / (Underlying.Bid - PreviousUnderlying.Bid);
                         item.Put.Bid = quote.BidPrice;
                         item.Put.Ask = quote.AskPrice;
                     }
-                    item.IsAtTheMoney = item.Strike > Underlying.Bid && item.Strike < Underlying.Ask;
+                    item.IsAtTheMoney = item.Strike == Math.Floor(Underlying.Bid) || item.Strike == Math.Floor(Underlying.Ask);
                 }
             }
         }
@@ -138,8 +156,4 @@ public class OptionChainItemSide
     public double Bid { get; internal set; }
     public double Ask { get; internal set; }
     public double Delta { get; internal set; }
-    public double Gamma { get; internal set; }
-    public double Theta { get; internal set; }
-    public double Rho { get; internal set; }
-    public double Vega { get; internal set; }
 }
