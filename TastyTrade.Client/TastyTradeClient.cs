@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -126,5 +128,42 @@ public class TastyTradeClient
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(_authenticationResponse.Data.SessionToken);
         var response = await client.GetAsync(url);
         return await response.Content.ReadAsStringAsync();
+    }
+    private async Task<string> Post(string url, string jsonBody)
+    {
+        var uri = new Uri(url);
+        using var client = new HttpClient();
+        client.DefaultRequestHeaders.UserAgent.ParseAdd(_userAgent);
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(Constants.Accept));
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(_authenticationResponse.Data.SessionToken);
+
+        using var content = new StringContent( jsonBody );
+        content.Headers.ContentType = new MediaTypeHeaderValue(Constants.ContentType);
+
+        var response = await client.PostAsync(uri, content);
+        if ((!response.IsSuccessStatusCode) && (response.StatusCode != HttpStatusCode.UnprocessableEntity))
+        {
+            var errorResponseTextIfAny = await response.Content.ReadAsStringAsync();
+            throw new Exception($"{uri.PathAndQuery} - {response.StatusCode.ToString()}-{response.ReasonPhrase}", new Exception(errorResponseTextIfAny));
+        }
+        var responseText = await response.Content.ReadAsStringAsync();
+        return responseText;
+    }
+
+    private async Task<ResponseType> Post<RequestType, ResponseType>(string url, RequestType requestBodyObject) 
+        where RequestType : new()
+        where ResponseType : new() 
+    {
+        var requestBodyJson = JsonConvert.SerializeObject(requestBodyObject);
+        var responseJson = await Post(url, requestBodyJson);
+        var responseType = JsonConvert.DeserializeObject<ResponseType>(responseJson);
+
+        return responseType;
+    }
+
+
+    public async Task<PlacedOrderResponse> PostOrderSubmission(string accountNumber, PlaceOrderRequest orderSubmission) {
+        var orderSubmissionResponse = await Post<PlaceOrderRequest, PlacedOrderResponse> ($"{_baseUrl}/accounts/{accountNumber}/orders", orderSubmission);
+        return orderSubmissionResponse;
     }
 }
