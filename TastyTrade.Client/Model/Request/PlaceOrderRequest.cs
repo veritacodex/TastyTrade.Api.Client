@@ -1,22 +1,19 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TastyTrade.Client.Model.Request
 {
-    public enum TimeInForce { 
+    public enum TimeInForce
+    {
         Day = 0,
         GTD = 1,
         GTC = 2
     }
 
-    public enum OrderType {
+    public enum OrderType
+    {
         [EnumMember(Value = "Limit")]
         Limit = 0,
 
@@ -32,13 +29,15 @@ namespace TastyTrade.Client.Model.Request
         [EnumMember(Value = "Notional Market")]
         NotionalMarket = 4
     }
-    
-    public enum PriceEffect { 
+
+    public enum PriceEffect
+    {
         Debit = 0,
         Credit = 1
     }
 
-    public enum InstrumentType {
+    public enum InstrumentType
+    {
         [EnumMember(Value = "Equity")]
         Equity = 0,
         [EnumMember(Value = "Equity Option")]
@@ -51,8 +50,8 @@ namespace TastyTrade.Client.Model.Request
         Cryptocurrency = 4
     }
 
-    public enum OrderLegAction {
-        
+    public enum OrderLegAction
+    {
         [EnumMember(Value = "Buy to Open")]
         BuyToOpen = 0,
 
@@ -68,7 +67,6 @@ namespace TastyTrade.Client.Model.Request
 
     public class PlaceOrderRequest
     {
-
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("time-in-force")]
         public TimeInForce TimeInForce { get; set; }
@@ -86,7 +84,6 @@ namespace TastyTrade.Client.Model.Request
 
         [JsonProperty("legs")]
         public List<OrderSubmissionLeg> Legs { get; set; }
-
     }
 
     public class OrderSubmissionLeg
@@ -104,6 +101,5 @@ namespace TastyTrade.Client.Model.Request
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("action")]
         public OrderLegAction Action { get; set; }
-
     }
 }

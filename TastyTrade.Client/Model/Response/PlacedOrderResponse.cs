@@ -1,18 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TastyTrade.Client.Model.Request;
 
 namespace TastyTrade.Client.Model.Response
 {
     public class PlacedOrderResponse
     {
-
         [JsonProperty("data")]
         public PlacedOrderResponseData Data { get; set; }
 
@@ -35,7 +29,6 @@ namespace TastyTrade.Client.Model.Response
 
         [JsonProperty("warnings")]
         public List<InnerErrorOrWarning> Warnings { get; set; }
-
     }
     public class PlacedOrderReceipt
     {
@@ -53,7 +46,6 @@ namespace TastyTrade.Client.Model.Response
 
         [JsonProperty("edited")]
         public bool Edited { get; set; }
-
 
         [JsonProperty("global-request-id")]
         public string GlobalRequestId { get; set; }
@@ -90,11 +82,10 @@ namespace TastyTrade.Client.Model.Response
 
         [JsonProperty("legs")]
         public List<PlacedOrderLegResponse> Legs { get; set; }
-
     }
 
-    public class PlacedOrderLegResponse  {
-
+    public class PlacedOrderLegResponse
+    {
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("instrument-type")]
         public InstrumentType InstrumentType { get; set; }
@@ -117,13 +108,12 @@ namespace TastyTrade.Client.Model.Response
     }
     public class PlacedOrderLegFill
     {
-        
         [JsonProperty("destination-venue")]
         public string DestinationVenue { get; set; }
 
         [JsonProperty("ext-exec-id")]
         public string ExtExecId { get; set; }
- 
+
         [JsonProperty("ext-group-fill-id")]
         public string ExtGroupFillId { get; set; }
 
@@ -132,13 +122,12 @@ namespace TastyTrade.Client.Model.Response
 
         [JsonProperty("fill-price")]
         public decimal FillPrice { get; set; }
-        
+
         [JsonProperty("filled-at")]
         public string FilledAt { get; set; }
 
         [JsonProperty("quantity")]
         public string Quantity { get; set; }
-
     }
     public class BuyingPowerChangeEffect
     {
@@ -152,39 +141,35 @@ namespace TastyTrade.Client.Model.Response
         public string ChangeInBuyingPower { get; set; }
 
         [JsonProperty("current-buying-power-effect")]
-        public string CurrentBuyingPowerEffect
-        { get; set; }
+        public string CurrentBuyingPowerEffect { get; set; }
 
         [JsonProperty("current-buying-power")]
         public string CurrentBuyingPower { get; set; }
 
-
         [JsonProperty("new-buying-power")]
-        public string NewBuyingPower
-        { get; set; }
+        public string NewBuyingPower { get; set; }
+
         [JsonProperty("new-buying-power-effect")]
-        public string NewBuyingPowerEffect
-        { get; set; }
+        public string NewBuyingPowerEffect { get; set; }
+
         [JsonProperty("isolated-order-margin-requirement")]
-        public string IsolatedOrderMarginRequirement
-        { get; set; }
+        public string IsolatedOrderMarginRequirement { get; set; }
+
         [JsonProperty("isolated-order-margin-requirement-effect")]
-        public string IsolatedOrderMarginRequirementEffect
-        { get; set; }
+        public string IsolatedOrderMarginRequirementEffect { get; set; }
+
         [JsonProperty("is-spread")]
-        public bool IsSpread
-        { get; set; }
-        [JsonProperty("Impact")]
-        public string impact
-        { get; set; }
+        public bool IsSpread { get; set; }
+
+        [JsonProperty("impact")]
+        public string Impact { get; set; }
+
         [JsonProperty("effect")]
-        public string Effect
-        { get; set; }
+        public string Effect { get; set; }
     }
 
     public class FeeCalculation
     {
-
         [JsonProperty("regulatory-fees")]
         public string RegulatoryFees { get; set; }
 
@@ -212,7 +197,6 @@ namespace TastyTrade.Client.Model.Response
         [JsonProperty("commission-breakdown")]
         public List<FeeBreakdown> CommissionBreakdown { get; set; }
 
-
         [JsonProperty("proprietary-index-option-fees")]
         public string ProprietaryIndexOptionFees { get; set; }
 
@@ -239,7 +223,6 @@ namespace TastyTrade.Client.Model.Response
 
         [JsonProperty("per-quantity")]
         public bool PerQuantity { get; set; }
-
     }
 
     public class FeeBreakdown
@@ -253,5 +236,4 @@ namespace TastyTrade.Client.Model.Response
         [JsonProperty("effect")]
         public string Effect { get; set; }
     }
-
 }

@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using DxFeed.Graal.Net.Api;
 using DxFeed.Graal.Net.Events.Market;

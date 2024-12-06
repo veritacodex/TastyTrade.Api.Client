@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using DxFeed.Graal.Net.Api;
-using DxFeed.Graal.Net.Events.Market;
 using Newtonsoft.Json;
-using TastyTrade.Client.Model.Helper;
 using TastyTrade.Client.Model.Request;
 
 namespace TastyTrade.Client.Examples

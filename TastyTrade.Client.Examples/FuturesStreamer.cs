@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using DxFeed.Graal.Net;
 using DxFeed.Graal.Net.Api;
 using DxFeed.Graal.Net.Events.Market;
-using DxFeed.Graal.Net.Ipf.Options;
 using Newtonsoft.Json;
 using TastyTrade.Client.Model.Request;
 
