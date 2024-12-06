@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class FutureOptionProductResponse
 {
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public FutureOptionProduct Product { get; set; }
 
-    [JsonProperty("context")]
+    [JsonPropertyName("context")]
     public string Context { get; set; }
 }

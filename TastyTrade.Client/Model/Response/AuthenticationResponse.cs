@@ -1,39 +1,39 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class AuthenticationResponse
 {
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public AuthenticationResponseData Data { get; set; }
 
-    [JsonProperty("context")]
+    [JsonPropertyName("context")]
     public string Context { get; set; }
 
-    [JsonProperty("error")]
+    [JsonPropertyName("error")]
     public Error Error { get; set; }
 }
 
 public class AuthenticationResponseData
 {
-    [JsonProperty("user")]
+    [JsonPropertyName("user")]
     public AuthenticationResponseUser User { get; set; }
 
-    [JsonProperty("session-token")]
+    [JsonPropertyName("session-token")]
     public string SessionToken { get; set; }
 
-    [JsonProperty("remember-token")]
+    [JsonPropertyName("remember-token")]
     public string RememberToken { get; set; }
 }
 
 public class AuthenticationResponseUser
 {
-    [JsonProperty("email")]
+    [JsonPropertyName("email")]
     public string Email { get; set; }
 
-    [JsonProperty("username")]
+    [JsonPropertyName("username")]
     public string Username { get; set; }
 
-    [JsonProperty("external-id")]
+    [JsonPropertyName("external-id")]
     public string ExternalId { get; set; }
 }

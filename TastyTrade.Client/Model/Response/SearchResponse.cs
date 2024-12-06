@@ -1,27 +1,27 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class SearchResponse
 {
-    [JsonProperty("symbol")]
+    [JsonPropertyName("symbol")]
     public string Symbol { get; set; }
 
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
-    [JsonProperty("listed-market")]
+    [JsonPropertyName("listed-market")]
     public string ListedMarket { get; set; }
 
-    [JsonProperty("price-increments")]
+    [JsonPropertyName("price-increments")]
     public string PriceIncrements { get; set; }
 
-    [JsonProperty("trading-hours")]
+    [JsonPropertyName("trading-hours")]
     public string TradingHours { get; set; }
 
-    [JsonProperty("options")]
+    [JsonPropertyName("options")]
     public string Options { get; set; }
 
-    [JsonProperty("instrument-type")]
+    [JsonPropertyName("instrument-type")]
     public string InstrumentType { get; set; }
 }

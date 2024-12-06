@@ -1,24 +1,24 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class ApiQuoteTokenResponse
 {
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public ApiQuoteTokenData Data { get; set; }
 
-    [JsonProperty("context")]
+    [JsonPropertyName("context")]
     public string Context { get; set; }
 }
 
 public class ApiQuoteTokenData
 {
-    [JsonProperty("token")]
+    [JsonPropertyName("token")]
     public string Token { get; set; }
 
-    [JsonProperty("dxlink-url")]
+    [JsonPropertyName("dxlink-url")]
     public string DxlinkUrl { get; set; }
 
-    [JsonProperty("level")]
+    [JsonPropertyName("level")]
     public string Level { get; set; }
 }

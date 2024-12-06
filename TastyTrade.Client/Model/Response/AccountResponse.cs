@@ -1,61 +1,61 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class AccountResponse
 {
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public AccountData Data { get; set; }
 
-    [JsonProperty("context")]
+    [JsonPropertyName("context")]
     public string Context { get; set; }
 }
 
 public class AccountData
 {
-    [JsonProperty("account-number")]
+    [JsonPropertyName("account-number")]
     public string AccountNumber { get; set; }
 
-    [JsonProperty("opened-at")]
+    [JsonPropertyName("opened-at")]
     public DateTimeOffset OpenedAt { get; set; }
 
-    [JsonProperty("nickname")]
+    [JsonPropertyName("nickname")]
     public string Nickname { get; set; }
 
-    [JsonProperty("account-type-name")]
+    [JsonPropertyName("account-type-name")]
     public string AccountTypeName { get; set; }
 
-    [JsonProperty("day-trader-status")]
+    [JsonPropertyName("day-trader-status")]
     public bool DayTraderStatus { get; set; }
 
-    [JsonProperty("is-closed")]
+    [JsonPropertyName("is-closed")]
     public bool IsClosed { get; set; }
 
-    [JsonProperty("is-firm-error")]
+    [JsonPropertyName("is-firm-error")]
     public bool IsFirmError { get; set; }
 
-    [JsonProperty("is-firm-proprietary")]
+    [JsonPropertyName("is-firm-proprietary")]
     public bool IsFirmProprietary { get; set; }
 
-    [JsonProperty("is-futures-approved")]
+    [JsonPropertyName("is-futures-approved")]
     public bool IsFuturesApproved { get; set; }
 
-    [JsonProperty("is-test-drive")]
+    [JsonPropertyName("is-test-drive")]
     public bool IsTestDrive { get; set; }
 
-    [JsonProperty("margin-or-cash")]
+    [JsonPropertyName("margin-or-cash")]
     public string MarginOrCash { get; set; }
 
-    [JsonProperty("is-foreign")]
+    [JsonPropertyName("is-foreign")]
     public bool IsForeign { get; set; }
 
-    [JsonProperty("investment-objective")]
+    [JsonPropertyName("investment-objective")]
     public string InvestmentObjective { get; set; }
 
-    [JsonProperty("suitable-options-level")]
+    [JsonPropertyName("suitable-options-level")]
     public string SuitableOptionsLevel { get; set; }
 
-    [JsonProperty("created-at")]
+    [JsonPropertyName("created-at")]
     public DateTimeOffset CreatedAt { get; set; }
 }

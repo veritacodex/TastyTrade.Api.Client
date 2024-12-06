@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class FutureContractsResponse
 {
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public FuturesData Data { get; set; }
 
-    [JsonProperty("context")]
+    [JsonPropertyName("context")]
     public string Context { get; set; }
 }
 
 public class FuturesData
 {
-    [JsonProperty("items")]
+    [JsonPropertyName("items")]
     public List<FutureContract> Items { get; set; }
 }

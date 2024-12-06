@@ -1,73 +1,73 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class FutureOptionProduct
 {
-    [JsonProperty("root-symbol")]
+    [JsonPropertyName("root-symbol")]
     public string RootSymbol { get; set; }
 
-    [JsonProperty("cash-settled")]
+    [JsonPropertyName("cash-settled")]
     public bool CashSettled { get; set; }
 
-    [JsonProperty("code")]
+    [JsonPropertyName("code")]
     public string Code { get; set; }
 
-    [JsonProperty("clearing-code")]
+    [JsonPropertyName("clearing-code")]
     public string ClearingCode { get; set; }
 
-    [JsonProperty("clearing-exchange-code")]
+    [JsonPropertyName("clearing-exchange-code")]
     public string ClearingExchangeCode { get; set; }
 
-    [JsonProperty("clearing-price-multiplier")]
+    [JsonPropertyName("clearing-price-multiplier")]
     public string ClearingPriceMultiplier { get; set; }
 
-    [JsonProperty("display-factor")]
+    [JsonPropertyName("display-factor")]
     public string DisplayFactor { get; set; }
 
-    [JsonProperty("exchange")]
+    [JsonPropertyName("exchange")]
     public string Exchange { get; set; }
 
-    [JsonProperty("product-type")]
+    [JsonPropertyName("product-type")]
     public string ProductType { get; set; }
 
-    [JsonProperty("expiration-type")]
+    [JsonPropertyName("expiration-type")]
     public string ExpirationType { get; set; }
 
-    [JsonProperty("settlement-delay-days")]
+    [JsonPropertyName("settlement-delay-days")]
     public int SettlementDelayDays { get; set; }
 
-    [JsonProperty("is-rollover")]
+    [JsonPropertyName("is-rollover")]
     public bool IsRollover { get; set; }
 
-    [JsonProperty("market-sector")]
+    [JsonPropertyName("market-sector")]
     public string MarketSector { get; set; }
 
-    [JsonProperty("supported")]
+    [JsonPropertyName("supported")]
     public bool Supported { get; set; }
 
-    [JsonProperty("future-product")]
+    [JsonPropertyName("future-product")]
     public FutureProduct FutureProduct { get; set; }
 
-    [JsonProperty("futures-trading-cutoff-times")]
+    [JsonPropertyName("futures-trading-cutoff-times")]
     public List<FuturesTradingCutoffTime> FuturesTradingCutoffTimes { get; set; }
 
-    [JsonProperty("legacy-code")]
+    [JsonPropertyName("legacy-code")]
     public string LegacyCode { get; set; }
 
-    [JsonProperty("clearport-code")]
+    [JsonPropertyName("clearport-code")]
     public string ClearportCode { get; set; }
 }
 
 public class FuturesTradingCutoffTime
 {
-    [JsonProperty("timezone")]
+    [JsonPropertyName("timezone")]
     public string Timezone { get; set; }
 
-    [JsonProperty("offset-seconds")]
+    [JsonPropertyName("offset-seconds")]
     public int OffsetSeconds { get; set; }
 
-    [JsonProperty("timing")]
+    [JsonPropertyName("timing")]
     public string Timing { get; set; }
 }

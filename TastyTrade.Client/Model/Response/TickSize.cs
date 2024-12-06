@@ -1,12 +1,12 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class TickSize
 {
-    [JsonProperty("value")]
+    [JsonPropertyName("value")]
     public string Value { get; set; }
 
-    [JsonProperty("threshold", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonPropertyName("threshold")]
     public string Threshold { get; set; }
 }

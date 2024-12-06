@@ -1,6 +1,6 @@
 ﻿using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using TastyTrade.Client.Model.Request;
 
 namespace TastyTrade.Client.Examples
@@ -9,7 +9,7 @@ namespace TastyTrade.Client.Examples
     {
         public static async Task Run()
         {
-            var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync(Program.CredsPath));
+            var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(Program.CredsPath));
             var tastyTradeClient = new TastyTradeClient();
             await tastyTradeClient.Authenticate(credentials);
 
@@ -28,7 +28,7 @@ namespace TastyTrade.Client.Examples
                 ]
             };
 
-            var test = JsonConvert.SerializeObject(orderSubmission);
+            var test = JsonSerializer.Serialize(orderSubmission);
             var orderSubmissionResponse = await tastyTradeClient.PostOrderSubmission(credentials.AccountNumber, orderSubmission);
         }
     }

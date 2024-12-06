@@ -1,218 +1,218 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class FutureContract
 {
-    [JsonProperty("symbol")]
+    [JsonPropertyName("symbol")]
     public string Symbol { get; set; }
 
-    [JsonProperty("product-code")]
+    [JsonPropertyName("product-code")]
     public string ProductCode { get; set; }
 
-    [JsonProperty("contract-size")]
+    [JsonPropertyName("contract-size")]
     public string ContractSize { get; set; }
 
-    [JsonProperty("tick-size")]
+    [JsonPropertyName("tick-size")]
     public string TickSize { get; set; }
 
-    [JsonProperty("notional-multiplier")]
+    [JsonPropertyName("notional-multiplier")]
     public string NotionalMultiplier { get; set; }
 
-    [JsonProperty("main-fraction")]
+    [JsonPropertyName("main-fraction")]
     public string MainFraction { get; set; }
 
-    [JsonProperty("sub-fraction")]
+    [JsonPropertyName("sub-fraction")]
     public string SubFraction { get; set; }
 
-    [JsonProperty("display-factor")]
+    [JsonPropertyName("display-factor")]
     public string DisplayFactor { get; set; }
 
-    [JsonProperty("last-trade-date")]
+    [JsonPropertyName("last-trade-date")]
     public string LastTradeDate { get; set; }
 
-    [JsonProperty("expiration-date")]
+    [JsonPropertyName("expiration-date")]
     public string ExpirationDate { get; set; }
 
-    [JsonProperty("closing-only-date")]
+    [JsonPropertyName("closing-only-date")]
     public string ClosingOnlyDate { get; set; }
 
-    [JsonProperty("active")]
+    [JsonPropertyName("active")]
     public bool Active { get; set; }
 
-    [JsonProperty("active-month")]
+    [JsonPropertyName("active-month")]
     public bool ActiveMonth { get; set; }
 
-    [JsonProperty("next-active-month")]
+    [JsonPropertyName("next-active-month")]
     public bool NextActiveMonth { get; set; }
 
-    [JsonProperty("is-closing-only")]
+    [JsonPropertyName("is-closing-only")]
     public bool IsClosingOnly { get; set; }
 
-    [JsonProperty("stops-trading-at")]
+    [JsonPropertyName("stops-trading-at")]
     public DateTime StopsTradingAt { get; set; }
 
-    [JsonProperty("expires-at")]
+    [JsonPropertyName("expires-at")]
     public DateTime ExpiresAt { get; set; }
 
-    [JsonProperty("product-group")]
+    [JsonPropertyName("product-group")]
     public string ProductGroup { get; set; }
 
-    [JsonProperty("exchange")]
+    [JsonPropertyName("exchange")]
     public string Exchange { get; set; }
 
-    [JsonProperty("roll-target-symbol")]
+    [JsonPropertyName("roll-target-symbol")]
     public string RollTargetSymbol { get; set; }
 
-    [JsonProperty("streamer-exchange-code")]
+    [JsonPropertyName("streamer-exchange-code")]
     public string StreamerExchangeCode { get; set; }
 
-    [JsonProperty("streamer-symbol")]
+    [JsonPropertyName("streamer-symbol")]
     public string StreamerSymbol { get; set; }
 
-    [JsonProperty("back-month-first-calendar-symbol")]
+    [JsonPropertyName("back-month-first-calendar-symbol")]
     public bool BackMonthFirstCalendarSymbol { get; set; }
 
-    [JsonProperty("is-tradeable")]
+    [JsonPropertyName("is-tradeable")]
     public bool IsTradeable { get; set; }
 
-    [JsonProperty("future-etf-equivalent")]
+    [JsonPropertyName("future-etf-equivalent")]
     public FutureEtfEquivalent FutureEtfEquivalent { get; set; }
 
-    [JsonProperty("future-product")]
+    [JsonPropertyName("future-product")]
     public FutureProduct FutureProduct { get; set; }
 
-    [JsonProperty("tick-sizes")]
+    [JsonPropertyName("tick-sizes")]
     public List<TickSize> TickSizes { get; set; }
 
-    [JsonProperty("option-tick-sizes")]
+    [JsonPropertyName("option-tick-sizes")]
     public List<TickSize> OptionTickSizes { get; set; }
 
-    [JsonProperty("spread-tick-sizes")]
+    [JsonPropertyName("spread-tick-sizes")]
     public List<SpreadTickSize> SpreadTickSizes { get; set; }
 
-    [JsonProperty("first-notice-date")]
+    [JsonPropertyName("first-notice-date")]
     public string FirstNoticeDate { get; set; }
 }
 
 public class FutureEtfEquivalent
 {
-    [JsonProperty("symbol")]
+    [JsonPropertyName("symbol")]
     public string Symbol { get; set; }
 
-    [JsonProperty("share-quantity")]
+    [JsonPropertyName("share-quantity")]
     public int ShareQuantity { get; set; }
 }
 
 public class FutureProduct
 {
-    [JsonProperty("root-symbol")]
+    [JsonPropertyName("root-symbol")]
     public string RootSymbol { get; set; }
 
-    [JsonProperty("code")]
+    [JsonPropertyName("code")]
     public string Code { get; set; }
 
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
-    [JsonProperty("clearing-code")]
+    [JsonPropertyName("clearing-code")]
     public string ClearingCode { get; set; }
 
-    [JsonProperty("clearing-exchange-code")]
+    [JsonPropertyName("clearing-exchange-code")]
     public string ClearingExchangeCode { get; set; }
 
-    [JsonProperty("clearport-code")]
+    [JsonPropertyName("clearport-code")]
     public string ClearportCode { get; set; }
 
-    [JsonProperty("legacy-code")]
+    [JsonPropertyName("legacy-code")]
     public string LegacyCode { get; set; }
 
-    [JsonProperty("exchange")]
+    [JsonPropertyName("exchange")]
     public string Exchange { get; set; }
 
-    [JsonProperty("legacy-exchange-code")]
+    [JsonPropertyName("legacy-exchange-code")]
     public string LegacyExchangeCode { get; set; }
 
-    [JsonProperty("product-type")]
+    [JsonPropertyName("product-type")]
     public string ProductType { get; set; }
 
-    [JsonProperty("listed-months")]
+    [JsonPropertyName("listed-months")]
     public List<string> ListedMonths { get; set; }
 
-    [JsonProperty("active-months")]
+    [JsonPropertyName("active-months")]
     public List<string> ActiveMonths { get; set; }
 
-    [JsonProperty("notional-multiplier")]
+    [JsonPropertyName("notional-multiplier")]
     public string NotionalMultiplier { get; set; }
 
-    [JsonProperty("tick-size")]
+    [JsonPropertyName("tick-size")]
     public string TickSize { get; set; }
 
-    [JsonProperty("display-factor")]
+    [JsonPropertyName("display-factor")]
     public string DisplayFactor { get; set; }
 
-    [JsonProperty("streamer-exchange-code")]
+    [JsonPropertyName("streamer-exchange-code")]
     public string StreamerExchangeCode { get; set; }
 
-    [JsonProperty("small-notional")]
+    [JsonPropertyName("small-notional")]
     public bool SmallNotional { get; set; }
 
-    [JsonProperty("back-month-first-calendar-symbol")]
+    [JsonPropertyName("back-month-first-calendar-symbol")]
     public bool BackMonthFirstCalendarSymbol { get; set; }
 
-    [JsonProperty("first-notice")]
+    [JsonPropertyName("first-notice")]
     public bool FirstNotice { get; set; }
 
-    [JsonProperty("cash-settled")]
+    [JsonPropertyName("cash-settled")]
     public bool CashSettled { get; set; }
 
-    [JsonProperty("security-group")]
+    [JsonPropertyName("security-group")]
     public string SecurityGroup { get; set; }
 
-    [JsonProperty("market-sector")]
+    [JsonPropertyName("market-sector")]
     public string MarketSector { get; set; }
 
-    [JsonProperty("roll")]
+    [JsonPropertyName("roll")]
     public Roll Roll { get; set; }
 
-    [JsonProperty("contract-limit")]
+    [JsonPropertyName("contract-limit")]
     public int? ContractLimit { get; set; }
 
-    [JsonProperty("base-tick")]
+    [JsonPropertyName("base-tick")]
     public int? BaseTick { get; set; }
 
-    [JsonProperty("price-format")]
+    [JsonPropertyName("price-format")]
     public string PriceFormat { get; set; }
 
-    [JsonProperty("sub-tick")]
+    [JsonPropertyName("sub-tick")]
     public int? SubTick { get; set; }
 }
 
 public class Roll
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("active-count")]
+    [JsonPropertyName("active-count")]
     public int ActiveCount { get; set; }
 
-    [JsonProperty("cash-settled")]
+    [JsonPropertyName("cash-settled")]
     public bool CashSettled { get; set; }
 
-    [JsonProperty("business-days-offset")]
+    [JsonPropertyName("business-days-offset")]
     public int BusinessDaysOffset { get; set; }
 
-    [JsonProperty("first-notice")]
+    [JsonPropertyName("first-notice")]
     public bool FirstNotice { get; set; }
 }
 
 public class SpreadTickSize
 {
-    [JsonProperty("value")]
+    [JsonPropertyName("value")]
     public string Value { get; set; }
 
-    [JsonProperty("symbol")]
+    [JsonPropertyName("symbol")]
     public string Symbol { get; set; }
 }

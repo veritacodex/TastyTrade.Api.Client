@@ -1,27 +1,27 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class Error
 {
-    [JsonProperty("code")]
+    [JsonPropertyName("code")]
     public string Code { get; set; }
 
-    [JsonProperty("message")]
+    [JsonPropertyName("message")]
     public string Message { get; set; }
 
-    [JsonProperty("errors")]
+    [JsonPropertyName("errors")]
     public List<InnerErrorOrWarning> Errors { get; set; }
 
 }
 
 public class InnerErrorOrWarning
 {
-    [JsonProperty("code")]
+    [JsonPropertyName("code")]
     public string Code { get; set; }
 
-    [JsonProperty("message")]
+    [JsonPropertyName("message")]
     public string Message { get; set; }
 
 }

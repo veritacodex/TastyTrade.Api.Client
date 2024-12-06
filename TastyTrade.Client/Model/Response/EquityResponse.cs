@@ -1,75 +1,75 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class EquityResponse
 {
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public EquityResponseData Data { get; set; }
 
-    [JsonProperty("context")]
+    [JsonPropertyName("context")]
     public string Context { get; set; }
 }
 
 public class EquityResponseData
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public long Id { get; set; }
 
-    [JsonProperty("symbol")]
+    [JsonPropertyName("symbol")]
     public string Symbol { get; set; }
 
-    [JsonProperty("instrument-type")]
+    [JsonPropertyName("instrument-type")]
     public string InstrumentType { get; set; }
 
-    [JsonProperty("cusip")]
+    [JsonPropertyName("cusip")]
     public string Cusip { get; set; }
 
-    [JsonProperty("short-description")]
+    [JsonPropertyName("short-description")]
     public string ShortDescription { get; set; }
 
-    [JsonProperty("is-index")]
+    [JsonPropertyName("is-index")]
     public bool IsIndex { get; set; }
 
-    [JsonProperty("listed-market")]
+    [JsonPropertyName("listed-market")]
     public string ListedMarket { get; set; }
 
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
-    [JsonProperty("lendability")]
+    [JsonPropertyName("lendability")]
     public string Lendability { get; set; }
 
-    [JsonProperty("market-time-instrument-collection")]
+    [JsonPropertyName("market-time-instrument-collection")]
     public string MarketTimeInstrumentCollection { get; set; }
 
-    [JsonProperty("is-closing-only")]
+    [JsonPropertyName("is-closing-only")]
     public bool IsClosingOnly { get; set; }
 
-    [JsonProperty("is-options-closing-only")]
+    [JsonPropertyName("is-options-closing-only")]
     public bool IsOptionsClosingOnly { get; set; }
 
-    [JsonProperty("active")]
+    [JsonPropertyName("active")]
     public bool Active { get; set; }
 
-    [JsonProperty("is-illiquid")]
+    [JsonPropertyName("is-illiquid")]
     public bool IsIlliquid { get; set; }
 
-    [JsonProperty("is-etf")]
+    [JsonPropertyName("is-etf")]
     public bool IsEtf { get; set; }
 
-    [JsonProperty("is-fraud-risk")]
+    [JsonPropertyName("is-fraud-risk")]
     public bool IsFraudRisk { get; set; }
 
-    [JsonProperty("streamer-symbol")]
+    [JsonPropertyName("streamer-symbol")]
     public string StreamerSymbol { get; set; }
 
-    [JsonProperty("bypass-manual-review")]
+    [JsonPropertyName("bypass-manual-review")]
     public bool BypassManualReview { get; set; }
 
-    [JsonProperty("tick-sizes")]
+    [JsonPropertyName("tick-sizes")]
     public TickSize[] TickSizes { get; set; }
 
-    [JsonProperty("option-tick-sizes")]
+    [JsonPropertyName("option-tick-sizes")]
     public TickSize[] OptionTickSizes { get; set; }
 }

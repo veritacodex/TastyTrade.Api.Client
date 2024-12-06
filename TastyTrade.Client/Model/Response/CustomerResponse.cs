@@ -1,133 +1,133 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class CustomerResponse
 {
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public CustomerResponseData Data { get; set; }
 
-    [JsonProperty("context")]
+    [JsonPropertyName("context")]
     public string Context { get; set; }
 }
 
 public class CustomerResponseData
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonProperty("first-name")]
+    [JsonPropertyName("first-name")]
     public string FirstName { get; set; }
 
-    [JsonProperty("last-name")]
+    [JsonPropertyName("last-name")]
     public string LastName { get; set; }
 
-    [JsonProperty("address")]
+    [JsonPropertyName("address")]
     public CustomerResponseAddress Address { get; set; }
 
-    [JsonProperty("mailing-address")]
+    [JsonPropertyName("mailing-address")]
     public CustomerResponseAddress MailingAddress { get; set; }
 
-    [JsonProperty("usa-citizenship-type")]
+    [JsonPropertyName("usa-citizenship-type")]
     public string UsaCitizenshipType { get; set; }
 
-    [JsonProperty("is-foreign")]
+    [JsonPropertyName("is-foreign")]
     public bool IsForeign { get; set; }
 
-    [JsonProperty("mobile-phone-number")]
+    [JsonPropertyName("mobile-phone-number")]
     public string MobilePhoneNumber { get; set; }
 
-    [JsonProperty("email")]
+    [JsonPropertyName("email")]
     public string Email { get; set; }
 
-    [JsonProperty("tax-number-type")]
+    [JsonPropertyName("tax-number-type")]
     public string TaxNumberType { get; set; }
 
-    [JsonProperty("birth-date")]
+    [JsonPropertyName("birth-date")]
     public DateTimeOffset BirthDate { get; set; }
 
-    [JsonProperty("subject-to-tax-withholding")]
+    [JsonPropertyName("subject-to-tax-withholding")]
     public bool SubjectToTaxWithholding { get; set; }
 
-    [JsonProperty("agreed-to-margining")]
+    [JsonPropertyName("agreed-to-margining")]
     public bool AgreedToMargining { get; set; }
 
-    [JsonProperty("has-industry-affiliation")]
+    [JsonPropertyName("has-industry-affiliation")]
     public bool HasIndustryAffiliation { get; set; }
 
-    [JsonProperty("has-political-affiliation")]
+    [JsonPropertyName("has-political-affiliation")]
     public bool HasPoliticalAffiliation { get; set; }
 
-    [JsonProperty("has-listed-affiliation")]
+    [JsonPropertyName("has-listed-affiliation")]
     public bool HasListedAffiliation { get; set; }
 
-    [JsonProperty("is-professional")]
+    [JsonPropertyName("is-professional")]
     public bool IsProfessional { get; set; }
 
-    [JsonProperty("has-delayed-quotes")]
+    [JsonPropertyName("has-delayed-quotes")]
     public bool HasDelayedQuotes { get; set; }
 
-    [JsonProperty("has-pending-or-approved-application")]
+    [JsonPropertyName("has-pending-or-approved-application")]
     public bool HasPendingOrApprovedApplication { get; set; }
 
-    [JsonProperty("permitted-account-types")]
+    [JsonPropertyName("permitted-account-types")]
     public CustomerResponsePermittedAccountType[] PermittedAccountTypes { get; set; }
 
-    [JsonProperty("created-at")]
+    [JsonPropertyName("created-at")]
     public DateTimeOffset CreatedAt { get; set; }
 }
 
 public class CustomerResponseAddress
 {
-    [JsonProperty("street-one")]
+    [JsonPropertyName("street-one")]
     public string StreetOne { get; set; }
 
-    [JsonProperty("city")]
+    [JsonPropertyName("city")]
     public string City { get; set; }
 
-    [JsonProperty("state-region")]
+    [JsonPropertyName("state-region")]
     public string StateRegion { get; set; }
 
-    [JsonProperty("postal-code")]
+    [JsonPropertyName("postal-code")]
     public string PostalCode { get; set; }
 
-    [JsonProperty("country")]
+    [JsonPropertyName("country")]
     public string Country { get; set; }
 
-    [JsonProperty("is-foreign")]
+    [JsonPropertyName("is-foreign")]
     public bool IsForeign { get; set; }
 
-    [JsonProperty("is-domestic")]
+    [JsonPropertyName("is-domestic")]
     public bool IsDomestic { get; set; }
 }
 
 public class CustomerResponsePermittedAccountType
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("description")]
+    [JsonPropertyName("description")]
     public string Description { get; set; }
 
-    [JsonProperty("is_tax_advantaged")]
+    [JsonPropertyName("is_tax_advantaged")]
     public bool IsTaxAdvantaged { get; set; }
 
-    [JsonProperty("has_multiple_owners")]
+    [JsonPropertyName("has_multiple_owners")]
     public bool HasMultipleOwners { get; set; }
 
-    [JsonProperty("is_publicly_available")]
+    [JsonPropertyName("is_publicly_available")]
     public bool IsPubliclyAvailable { get; set; }
 
-    [JsonProperty("margin_types")]
+    [JsonPropertyName("margin_types")]
     public CustomerResponseMarginType[] MarginTypes { get; set; }
 }
 
 public class CustomerResponseMarginType
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
 
-    [JsonProperty("is_margin")]
+    [JsonPropertyName("is_margin")]
     public bool IsMargin { get; set; }
 }

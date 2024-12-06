@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Request
 {
@@ -67,39 +66,39 @@ namespace TastyTrade.Client.Model.Request
 
     public class PlaceOrderRequest
     {
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("time-in-force")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonPropertyName("time-in-force")]
         public TimeInForce TimeInForce { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("order-type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonPropertyName("order-type")]
         public OrderType OrderType { get; set; }
 
-        [JsonProperty("price")]
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("price-effect")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonPropertyName("price-effect")]
         public PriceEffect PriceEffect { get; set; }
 
-        [JsonProperty("legs")]
+        [JsonPropertyName("legs")]
         public List<OrderSubmissionLeg> Legs { get; set; }
     }
 
     public class OrderSubmissionLeg
     {
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("instrument-type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonPropertyName("instrument-type")]
         public InstrumentType InstrumentType { get; set; }
 
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; }
 
-        [JsonProperty("quantity")]
+        [JsonPropertyName("quantity")]
         public decimal Quantity { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("action")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonPropertyName("action")]
         public OrderLegAction Action { get; set; }
     }
 }

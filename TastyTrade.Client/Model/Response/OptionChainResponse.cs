@@ -1,80 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Response;
 
 public class OptionChainResponse
 {
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public OptionChainResponseData Data { get; set; }
 
-    [JsonProperty("context")]
+    [JsonPropertyName("context")]
     public string Context { get; set; }
 }
 
 public class OptionChainResponseData
 {
-    [JsonProperty("items")]
+    [JsonPropertyName("items")]
     public List<OptionChainResponseDataItem> Items { get; set; }
 }
 
 public class OptionChainResponseDataItem
 {
-    [JsonProperty("symbol")]
+    [JsonPropertyName("symbol")]
     public string Symbol { get; set; }
 
-    [JsonProperty("instrument-type")]
+    [JsonPropertyName("instrument-type")]
     public string InstrumentType { get; set; }
 
-    [JsonProperty("active")]
+    [JsonPropertyName("active")]
     public bool Active { get; set; }
 
-    [JsonProperty("strike-price")]
+    [JsonPropertyName("strike-price")]
     public double StrikePrice { get; set; }
 
-    [JsonProperty("root-symbol")]
+    [JsonPropertyName("root-symbol")]
     public string RootSymbol { get; set; }
 
-    [JsonProperty("underlying-symbol")]
+    [JsonPropertyName("underlying-symbol")]
     public string UnderlyingSymbol { get; set; }
 
-    [JsonProperty("expiration-date")]
+    [JsonPropertyName("expiration-date")]
     public string ExpirationDate { get; set; }
 
-    [JsonProperty("exercise-style")]
+    [JsonPropertyName("exercise-style")]
     public string ExerciseStyle { get; set; }
 
-    [JsonProperty("shares-per-contract")]
+    [JsonPropertyName("shares-per-contract")]
     public int SharesPerContract { get; set; }
 
-    [JsonProperty("option-type")]
+    [JsonPropertyName("option-type")]
     public string OptionType { get; set; }
 
-    [JsonProperty("option-chain-type")]
+    [JsonPropertyName("option-chain-type")]
     public string OptionChainType { get; set; }
 
-    [JsonProperty("expiration-type")]
+    [JsonPropertyName("expiration-type")]
     public string ExpirationType { get; set; }
 
-    [JsonProperty("settlement-type")]
+    [JsonPropertyName("settlement-type")]
     public string SettlementType { get; set; }
 
-    [JsonProperty("stops-trading-at")]
+    [JsonPropertyName("stops-trading-at")]
     public DateTime StopsTradingAt { get; set; }
 
-    [JsonProperty("market-time-instrument-collection")]
+    [JsonPropertyName("market-time-instrument-collection")]
     public string MarketTimeInstrumentCollection { get; set; }
 
-    [JsonProperty("days-to-expiration")]
+    [JsonPropertyName("days-to-expiration")]
     public int DaysToExpiration { get; set; }
 
-    [JsonProperty("expires-at")]
+    [JsonPropertyName("expires-at")]
     public DateTime ExpiresAt { get; set; }
 
-    [JsonProperty("is-closing-only")]
+    [JsonPropertyName("is-closing-only")]
     public bool IsClosingOnly { get; set; }
 
-    [JsonProperty("streamer-symbol")]
+    [JsonPropertyName("streamer-symbol")]
     public string StreamerSymbol { get; set; }
 }

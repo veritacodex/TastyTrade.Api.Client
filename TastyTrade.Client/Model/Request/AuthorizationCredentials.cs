@@ -1,24 +1,24 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Request;
 
 public class AuthorizationCredentials
 {
-    [JsonProperty("account-number")]
+    [JsonPropertyName("account-number")]
     public string AccountNumber { get; set; }
 
-    [JsonProperty("login")]
+    [JsonPropertyName("login")]
     public string Login { get; set; }
 
-    [JsonProperty("password")]
+    [JsonPropertyName("password")]
     public string Password { get; set; }
 
-    [JsonProperty("remember-me")]
+    [JsonPropertyName("remember-me")]
     public bool RememberMe { get; set; }
 
-    [JsonProperty("user-agent")]
+    [JsonPropertyName("user-agent")]
     public string UserAgent { get; set; }
 
-    [JsonProperty("api-base-url")]
+    [JsonPropertyName("api-base-url")]
     public string ApiBaseUrl { get; set; }
 }

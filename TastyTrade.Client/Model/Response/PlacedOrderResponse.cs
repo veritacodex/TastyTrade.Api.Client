@@ -1,239 +1,238 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using TastyTrade.Client.Model.Request;
 
 namespace TastyTrade.Client.Model.Response
 {
     public class PlacedOrderResponse
     {
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public PlacedOrderResponseData Data { get; set; }
 
-        [JsonProperty("context")]
+        [JsonPropertyName("context")]
         public string Context { get; set; }
 
-        [JsonProperty("error")]
+        [JsonPropertyName("error")]
         public Error Error { get; set; }
     }
     public class PlacedOrderResponseData
     {
-        [JsonProperty("buying-power-effect")]
+        [JsonPropertyName("buying-power-effect")]
         public BuyingPowerChangeEffect BuyingPowerEffect { get; set; }
 
-        [JsonProperty("fee-calculation")]
+        [JsonPropertyName("fee-calculation")]
         public FeeCalculation FeeCalculation { get; set; }
 
-        [JsonProperty("order")]
+        [JsonPropertyName("order")]
         public PlacedOrderReceipt Order { get; set; }
 
-        [JsonProperty("warnings")]
+        [JsonPropertyName("warnings")]
         public List<InnerErrorOrWarning> Warnings { get; set; }
     }
     public class PlacedOrderReceipt
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public long OrderId { get; set; }
 
-        [JsonProperty("account-number")]
+        [JsonPropertyName("account-number")]
         public string AccountNumber { get; set; }
 
-        [JsonProperty("cancellable")]
+        [JsonPropertyName("cancellable")]
         public bool Cancellable { get; set; }
 
-        [JsonProperty("editable")]
+        [JsonPropertyName("editable")]
         public bool Editable { get; set; }
 
-        [JsonProperty("edited")]
+        [JsonPropertyName("edited")]
         public bool Edited { get; set; }
 
-        [JsonProperty("global-request-id")]
+        [JsonPropertyName("global-request-id")]
         public string GlobalRequestId { get; set; }
 
-        [JsonProperty("order-type")]
+        [JsonPropertyName("order-type")]
         public string OrderType { get; set; }
 
-        [JsonProperty("price")]
+        [JsonPropertyName("price")]
         public string Price { get; set; }
 
-        [JsonProperty("price-effect")]
+        [JsonPropertyName("price-effect")]
         public string PriceEffect { get; set; }
 
-        [JsonProperty("received-at")]
+        [JsonPropertyName("received-at")]
         public string ReceivedAt { get; set; }
 
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public decimal Size { get; set; }
 
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public string Status { get; set; }
 
-        [JsonProperty("time-in-force")]
+        [JsonPropertyName("time-in-force")]
         public string TimeInForce { get; set; }
 
-        [JsonProperty("underlying-instrument-type")]
+        [JsonPropertyName("underlying-instrument-type")]
         public string UnderlyingInstrumentType { get; set; }
 
-        [JsonProperty("underlying-symbol")]
+        [JsonPropertyName("underlying-symbol")]
         public string UnderlyingSymbol { get; set; }
 
-        [JsonProperty("updated-at")]
+        [JsonPropertyName("updated-at")]
         public long UpdatedAt { get; set; }
 
-        [JsonProperty("legs")]
+        [JsonPropertyName("legs")]
         public List<PlacedOrderLegResponse> Legs { get; set; }
     }
 
     public class PlacedOrderLegResponse
     {
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("instrument-type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonPropertyName("instrument-type")]
         public InstrumentType InstrumentType { get; set; }
 
-        [JsonProperty("symbol")]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; }
 
-        [JsonProperty("quantity")]
+        [JsonPropertyName("quantity")]
         public string Quantity { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("action")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonPropertyName("action")]
         public OrderLegAction Action { get; set; }
 
-        [JsonProperty("remaining-quantity")]
+        [JsonPropertyName("remaining-quantity")]
         public string RemainingQuantity { get; set; }
 
-        [JsonProperty("fills")]
+        [JsonPropertyName("fills")]
         public List<PlacedOrderLegFill?> Fills { get; set; }
     }
     public class PlacedOrderLegFill
     {
-        [JsonProperty("destination-venue")]
+        [JsonPropertyName("destination-venue")]
         public string DestinationVenue { get; set; }
 
-        [JsonProperty("ext-exec-id")]
+        [JsonPropertyName("ext-exec-id")]
         public string ExtExecId { get; set; }
 
-        [JsonProperty("ext-group-fill-id")]
+        [JsonPropertyName("ext-group-fill-id")]
         public string ExtGroupFillId { get; set; }
 
-        [JsonProperty("fill-id")]
+        [JsonPropertyName("fill-id")]
         public string FillId { get; set; }
 
-        [JsonProperty("fill-price")]
+        [JsonPropertyName("fill-price")]
         public decimal FillPrice { get; set; }
 
-        [JsonProperty("filled-at")]
+        [JsonPropertyName("filled-at")]
         public string FilledAt { get; set; }
 
-        [JsonProperty("quantity")]
+        [JsonPropertyName("quantity")]
         public string Quantity { get; set; }
     }
     public class BuyingPowerChangeEffect
     {
-        [JsonProperty("change-in-margin-requirement")]
+        [JsonPropertyName("change-in-margin-requirement")]
         public string ChangeInMarginRequirement { get; set; }
 
-        [JsonProperty("change-in-margin-requirement-effect")]
+        [JsonPropertyName("change-in-margin-requirement-effect")]
         public string ChangeInMarginRequirementEffect { get; set; }
 
-        [JsonProperty("change-in-buying-power")]
+        [JsonPropertyName("change-in-buying-power")]
         public string ChangeInBuyingPower { get; set; }
 
-        [JsonProperty("current-buying-power-effect")]
+        [JsonPropertyName("current-buying-power-effect")]
         public string CurrentBuyingPowerEffect { get; set; }
 
-        [JsonProperty("current-buying-power")]
+        [JsonPropertyName("current-buying-power")]
         public string CurrentBuyingPower { get; set; }
 
-        [JsonProperty("new-buying-power")]
+        [JsonPropertyName("new-buying-power")]
         public string NewBuyingPower { get; set; }
 
-        [JsonProperty("new-buying-power-effect")]
+        [JsonPropertyName("new-buying-power-effect")]
         public string NewBuyingPowerEffect { get; set; }
 
-        [JsonProperty("isolated-order-margin-requirement")]
+        [JsonPropertyName("isolated-order-margin-requirement")]
         public string IsolatedOrderMarginRequirement { get; set; }
 
-        [JsonProperty("isolated-order-margin-requirement-effect")]
+        [JsonPropertyName("isolated-order-margin-requirement-effect")]
         public string IsolatedOrderMarginRequirementEffect { get; set; }
 
-        [JsonProperty("is-spread")]
+        [JsonPropertyName("is-spread")]
         public bool IsSpread { get; set; }
 
-        [JsonProperty("impact")]
+        [JsonPropertyName("impact")]
         public string Impact { get; set; }
 
-        [JsonProperty("effect")]
+        [JsonPropertyName("effect")]
         public string Effect { get; set; }
     }
 
     public class FeeCalculation
     {
-        [JsonProperty("regulatory-fees")]
+        [JsonPropertyName("regulatory-fees")]
         public string RegulatoryFees { get; set; }
 
-        [JsonProperty("regulatory-fees-effect")]
+        [JsonPropertyName("regulatory-fees-effect")]
         public string RegulatoryFeesEffect { get; set; }
 
-        [JsonProperty("regulatory-fees-breakdown")]
+        [JsonPropertyName("regulatory-fees-breakdown")]
         public List<FeeBreakdown> RegulatoryFeesBreakdown { get; set; }
 
-        [JsonProperty("clearing-fees")]
+        [JsonPropertyName("clearing-fees")]
         public string ClearingFees { get; set; }
 
-        [JsonProperty("clearing-fees-effect")]
+        [JsonPropertyName("clearing-fees-effect")]
         public string ClearingFeesEffect { get; set; }
 
-        [JsonProperty("clearing-fees-breakdown")]
+        [JsonPropertyName("clearing-fees-breakdown")]
         public List<FeeBreakdown> ClearingFeesBreakdown { get; set; }
 
-        [JsonProperty("commission")]
+        [JsonPropertyName("commission")]
         public string Commission { get; set; }
 
-        [JsonProperty("commission-effect")]
+        [JsonPropertyName("commission-effect")]
         public string CommissionEffect { get; set; }
 
-        [JsonProperty("commission-breakdown")]
+        [JsonPropertyName("commission-breakdown")]
         public List<FeeBreakdown> CommissionBreakdown { get; set; }
 
-        [JsonProperty("proprietary-index-option-fees")]
+        [JsonPropertyName("proprietary-index-option-fees")]
         public string ProprietaryIndexOptionFees { get; set; }
 
-        [JsonProperty("proprietary-index-option-fees-effect")]
+        [JsonPropertyName("proprietary-index-option-fees-effect")]
         public string ProprietaryIndexOptionFeesEffect { get; set; }
 
-        [JsonProperty("proprietary-fees-breakdown")]
+        [JsonPropertyName("proprietary-fees-breakdown")]
         public List<FeeBreakdown> ProprietaryFeesBreakdown { get; set; }
 
-        [JsonProperty("total-fees")]
+        [JsonPropertyName("total-fees")]
         public string TotalFees { get; set; }
 
-        [JsonProperty("total-fees-effect")]
+        [JsonPropertyName("total-fees-effect")]
         public string TotalFeesEffect { get; set; }
 
-        [JsonProperty("rebates")]
+        [JsonPropertyName("rebates")]
         public string Rebates { get; set; }
 
-        [JsonProperty("rebates-effect")]
+        [JsonPropertyName("rebates-effect")]
         public string RebatesEffect { get; set; }
 
-        [JsonProperty("rebates-breakdown")]
+        [JsonPropertyName("rebates-breakdown")]
         public List<FeeBreakdown> RebatesBreakdown { get; set; }
 
-        [JsonProperty("per-quantity")]
+        [JsonPropertyName("per-quantity")]
         public bool PerQuantity { get; set; }
     }
 
     public class FeeBreakdown
     {
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty("value")]
+        [JsonPropertyName("value")]
         public string Value { get; set; }
 
-        [JsonProperty("effect")]
+        [JsonPropertyName("effect")]
         public string Effect { get; set; }
     }
 }

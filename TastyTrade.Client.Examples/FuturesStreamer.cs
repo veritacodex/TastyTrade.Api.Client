@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DxFeed.Graal.Net.Api;
 using DxFeed.Graal.Net.Events.Market;
-using Newtonsoft.Json;
 using TastyTrade.Client.Model.Request;
 
 namespace TastyTrade.Client.Examples;
@@ -12,7 +12,7 @@ public static class FuturesStreamer
 {
     public static async Task Run(){
 
-        var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync(Program.CredsPath));
+        var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(Program.CredsPath));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
         var es = await tastyTradeClient.GetFuturesContract("ESU4");
