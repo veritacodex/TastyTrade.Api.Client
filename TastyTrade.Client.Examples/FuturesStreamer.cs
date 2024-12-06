@@ -14,7 +14,7 @@ public static class FuturesStreamer
 {
     public static async Task Run(){
 
-        var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync("./credentials.json"));
+        var credentials = JsonConvert.DeserializeObject<AuthorizationCredentials>(await File.ReadAllTextAsync(Program.CredsPath));
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
         var es = await tastyTradeClient.GetFuturesContract("ESU4");

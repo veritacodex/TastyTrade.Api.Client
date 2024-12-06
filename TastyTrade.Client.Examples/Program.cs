@@ -6,6 +6,8 @@ namespace TastyTrade.Client.Examples;
 
 static class Program
 {
+    internal const string CredsPath = "./credentials.json";
+
     static async Task Main()
     {
         SystemProperty.SetProperty("dxfeed.experimental.dxlink.enable", "true");
