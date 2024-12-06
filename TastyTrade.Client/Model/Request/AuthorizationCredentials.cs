@@ -4,6 +4,9 @@ namespace TastyTrade.Client.Model.Request;
 
 public class AuthorizationCredentials
 {
+    [JsonProperty("account-number")]
+    public string AccountNumber { get; set; }
+
     [JsonProperty("login")]
     public string Login { get; set; }
 

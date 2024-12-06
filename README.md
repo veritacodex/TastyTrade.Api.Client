@@ -7,6 +7,7 @@ In order to run the examples project create a credentials.json file within the p
 
 ```json
 {
+    "account-number": "account to trade on",
     "login": "",
     "password": "",
     "user-agent": "any user agent to indentify your application",
