@@ -154,8 +154,10 @@ public class TastyTradeClient
         where RequestType : new()
         where ResponseType : new() 
     {
+
         var requestBodyJson = JsonSerializer.Serialize(requestBodyObject);
         var responseJson = await Post(url, requestBodyJson);
+
         var responseType = JsonSerializer.Deserialize<ResponseType>(responseJson);
 
         return responseType;
