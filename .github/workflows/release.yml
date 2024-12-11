@@ -5,6 +5,7 @@ on:
 
 env:
   NET_VERSION: 8.0.100
+  NUGET_PATH: '${{ github.workspace }}/TastyTrade.Client/bin/Release/TastyTrade.Client.1.0.2.nupkg'
   PROJECT_PATH: '${{ github.workspace }}/TastyTrade.Client/TastyTrade.Client.csproj'
   
 jobs:
@@ -23,6 +24,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: NuGet
+        path: ${{ env.NUGET_PATH }}
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.1.1
     - name: Publish
