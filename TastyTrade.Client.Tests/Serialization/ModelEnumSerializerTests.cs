@@ -101,7 +101,7 @@ namespace TastyTrade.Client.Tests.Serialization
                 var rehydratedOrder = JsonSerializer.Deserialize(jsonOrder, testableEnumValue.Value.GetType());
                 var actual = enumProp.GetValue(rehydratedOrder);
 
-                Assert.That(jsonOrder, Does.Contain(testableEnumValue.Key.EnumValueNameSerializationName), $"json should contain {testableEnumValue.Key.EnumValueNameSerializationName} but doesn't");
+                Assert.That(jsonOrder, Does.Contain(testableEnumValue.Key.EnumValueNameSerializationName));
                 Assert.That(actual, Is.EqualTo(testableEnumValue.Key.EnumValue));
             }
         }
