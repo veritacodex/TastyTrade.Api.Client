@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DxFeed.Graal.Net" Version="2.4.1" />
     <PackageReference Include="System.Text.Json" Version="9.0.0" />
   </ItemGroup>
