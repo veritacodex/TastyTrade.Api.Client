@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Request
@@ -13,19 +15,19 @@ namespace TastyTrade.Client.Model.Request
 
     public enum OrderType
     {
-        [EnumMember(Value = "Limit")]
+        [JsonStringEnumMemberName("Limit")]
         Limit = 0,
 
-        [EnumMember(Value = "Market")]
+        [JsonStringEnumMemberName("Market")]
         Market = 1,
 
-        [EnumMember(Value = "Stop")]
+        [JsonStringEnumMemberName("Stop")]
         Stop = 2,
 
-        [EnumMember(Value = "Stop Limit")]
+        [JsonStringEnumMemberName("Stop Limit")]
         StopLimit = 3,
 
-        [EnumMember(Value = "Notional Market")]
+        [JsonStringEnumMemberName("Notional Market")]
         NotionalMarket = 4
     }
 
@@ -35,32 +37,37 @@ namespace TastyTrade.Client.Model.Request
         Credit = 1
     }
 
+
     public enum InstrumentType
     {
-        [EnumMember(Value = "Equity")]
+        [JsonStringEnumMemberName("Equity")]
         Equity = 0,
-        [EnumMember(Value = "Equity Option")]
+
+        [JsonStringEnumMemberName("Equity Option")]
         EquityOption = 1,
-        [EnumMember(Value = "Future")]
+
+        [JsonStringEnumMemberName("Future")]
         Future = 2,
-        [EnumMember(Value = "Future Option")]
+
+        [JsonStringEnumMemberName("Future Option")]
         FutureOption = 3,
-        [EnumMember(Value = "Cryptocurrency")]
+
+        [JsonStringEnumMemberName("Cryptocurrency")]
         Cryptocurrency = 4
     }
 
     public enum OrderLegAction
     {
-        [EnumMember(Value = "Buy to Open")]
+        [JsonStringEnumMemberName("Buy to Open")]
         BuyToOpen = 0,
 
-        [EnumMember(Value = "Sell to Open")]
+        [JsonStringEnumMemberName("Sell to Open")]
         SellToOpen = 1,
 
-        [EnumMember(Value = "Buy to Close")]
+        [JsonStringEnumMemberName("Buy to Close")]
         BuyToClose = 2,
 
-        [EnumMember(Value = "Sell to Close")]
+        [JsonStringEnumMemberName("Sell to Close")]
         SellToClose = 3,
     }
 

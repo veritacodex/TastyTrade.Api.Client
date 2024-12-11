@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using TastyTrade.Client.Model.Request;
+using TastyTrade.Client.Model.Response;
 
 namespace TastyTrade.Client.Examples
 {
@@ -28,7 +29,6 @@ namespace TastyTrade.Client.Examples
                 ]
             };
 
-            var test = JsonSerializer.Serialize(orderSubmission);
             var orderSubmissionResponse = await tastyTradeClient.PostOrderSubmission(credentials.AccountNumber, orderSubmission);
         }
     }

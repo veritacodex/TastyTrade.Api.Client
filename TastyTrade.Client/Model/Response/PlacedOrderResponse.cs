@@ -93,14 +93,14 @@ namespace TastyTrade.Client.Model.Response
         public string Symbol { get; set; }
 
         [JsonPropertyName("quantity")]
-        public string Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [JsonPropertyName("action")]
         public OrderLegAction Action { get; set; }
 
         [JsonPropertyName("remaining-quantity")]
-        public string RemainingQuantity { get; set; }
+        public decimal RemainingQuantity { get; set; }
 
         [JsonPropertyName("fills")]
         public List<PlacedOrderLegFill?> Fills { get; set; }
@@ -126,7 +126,7 @@ namespace TastyTrade.Client.Model.Response
         public string FilledAt { get; set; }
 
         [JsonPropertyName("quantity")]
-        public string Quantity { get; set; }
+        public decimal Quantity { get; set; }
     }
     public class BuyingPowerChangeEffect
     {
