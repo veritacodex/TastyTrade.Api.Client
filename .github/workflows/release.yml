@@ -5,7 +5,7 @@ on:
 
 env:
   NET_VERSION: 8.0.100
-  NUGET_PATH: '${{ github.workspace }}//TastyTrade.Client/TastyTrade.Client.1.0.0.nupkg'
+  NUGET_PATH: '${{ github.workspace }}/TastyTrade.Client/bin/Release/TastyTrade.Client.1.0.0.nupkg'
   PROJECT_PATH: '${{ github.workspace }}/TastyTrade.Client/TastyTrade.Client.csproj'
   
 jobs:
@@ -20,7 +20,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+      run: dotnet clean && dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore && dotnet pack
     - uses: actions/upload-artifact@v3
       with:
         name: NuGet
