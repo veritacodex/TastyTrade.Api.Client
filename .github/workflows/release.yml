@@ -5,7 +5,7 @@ on:
 
 env:
   NET_VERSION: 8.0.100
-  NUGET_PATH: '${{ github.workspace }}/TastyTrade.Client/bin/Release/TastyTrade.Client.1.0.0.nupkg'
+  NUGET_PATH: '${{ github.workspace }}/TastyTrade.Client/bin/Release/TastyTrade.Client.1.0.1.nupkg'
   PROJECT_PATH: '${{ github.workspace }}/TastyTrade.Client/TastyTrade.Client.csproj'
   
 jobs:
