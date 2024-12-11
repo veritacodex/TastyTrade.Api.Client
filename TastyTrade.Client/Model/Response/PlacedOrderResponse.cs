@@ -103,7 +103,7 @@ namespace TastyTrade.Client.Model.Response
         public decimal RemainingQuantity { get; set; }
 
         [JsonPropertyName("fills")]
-        public List<PlacedOrderLegFill?> Fills { get; set; }
+        public List<PlacedOrderLegFill> Fills { get; set; }
     }
     public class PlacedOrderLegFill
     {
