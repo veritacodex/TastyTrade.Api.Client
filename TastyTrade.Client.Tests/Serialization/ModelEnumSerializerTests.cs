@@ -34,12 +34,12 @@ namespace TastyTrade.Client.Tests.Serialization
         {
             var assemblyNamePrefix = typeof(PlaceOrderRequest).FullName.Split('.')[0];
             var allTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes()).ToList();
-            var tastytypes = allTypes.FirstOrDefault(t => 
-                !string.IsNullOrEmpty(t.Namespace) && 
+            var tastytypes = allTypes.FirstOrDefault(t =>
+                !string.IsNullOrEmpty(t.Namespace) &&
                 t.Namespace.ToLower().Contains("tasty", StringComparison.Ordinal));
-            var tastyEnums = allTypes.Where(t => 
-                t != null && 
-                (!string.IsNullOrWhiteSpace(t.Namespace)) && 
+            var tastyEnums = allTypes.Where(t =>
+                t != null &&
+                (!string.IsNullOrWhiteSpace(t.Namespace)) &&
                 t.Namespace.StartsWith(assemblyNamePrefix) && t.IsEnum).ToList();
             var enumValuesList = new List<FlatEnumValueAttributeName>();
             tastyEnums.ForEach(enumType =>
@@ -100,9 +100,11 @@ namespace TastyTrade.Client.Tests.Serialization
                 var jsonOrder = JsonSerializer.Serialize(testableEnumValue.Value);
                 var rehydratedOrder = JsonSerializer.Deserialize(jsonOrder, testableEnumValue.Value.GetType());
                 var actual = enumProp.GetValue(rehydratedOrder);
-
-                Assert.That(jsonOrder, Does.Contain(testableEnumValue.Key.EnumValueNameSerializationName));
-                Assert.That(actual, Is.EqualTo(testableEnumValue.Key.EnumValue));
+                Assert.Multiple(() =>
+                    {
+                        Assert.That(jsonOrder, Does.Contain(testableEnumValue.Key.EnumValueNameSerializationName), $"json should contain {testableEnumValue.Key.EnumValueNameSerializationName} but doesn't");
+                        Assert.That(actual, Is.EqualTo(testableEnumValue.Key.EnumValue));
+                    });
             }
         }
 
