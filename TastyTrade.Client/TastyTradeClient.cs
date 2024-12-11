@@ -144,7 +144,7 @@ public class TastyTradeClient
         if ((!response.IsSuccessStatusCode) && (response.StatusCode != HttpStatusCode.UnprocessableEntity))
         {
             var errorResponseTextIfAny = await response.Content.ReadAsStringAsync();
-            throw new Exception($"{uri.PathAndQuery} - {response.StatusCode.ToString()}-{response.ReasonPhrase}", new Exception(errorResponseTextIfAny));
+            throw new InvalidOperationException($"{uri.PathAndQuery} - {response.StatusCode.ToString()}-{response.ReasonPhrase}", new InvalidOperationException(errorResponseTextIfAny));
         }
         var responseText = await response.Content.ReadAsStringAsync();
         return responseText;

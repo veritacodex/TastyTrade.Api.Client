@@ -2,11 +2,10 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using TastyTrade.Client.Model.Request;
-using TastyTrade.Client.Model.Response;
 
 namespace TastyTrade.Client.Examples
 {
-    public class OrderSubmitter
+    public static class OrderSubmitter
     {
         public static async Task Run()
         {

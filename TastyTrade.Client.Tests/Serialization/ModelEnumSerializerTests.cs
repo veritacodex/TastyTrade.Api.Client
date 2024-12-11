@@ -30,12 +30,17 @@ namespace TastyTrade.Client.Tests.Serialization
             }
         }
 
-        private List<FlatEnumValueAttributeName> GetEnumsWithSerializationAttributes()
+        private static List<FlatEnumValueAttributeName> GetEnumsWithSerializationAttributes()
         {
-            var assemblyNamePrefix = typeof(TastyTrade.Client.Model.Request.PlaceOrderRequest).FullName.Split('.')[0];
+            var assemblyNamePrefix = typeof(PlaceOrderRequest).FullName.Split('.')[0];
             var allTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes()).ToList();
-            var tastytypes = allTypes.FirstOrDefault(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.ToLower().Contains("tasty"));
-            var tastyEnums = allTypes.Where(t => t != null && (!string.IsNullOrWhiteSpace(t.Namespace)) && t.Namespace.StartsWith(assemblyNamePrefix) && t.IsEnum).ToList();
+            var tastytypes = allTypes.FirstOrDefault(t => 
+                !string.IsNullOrEmpty(t.Namespace) && 
+                t.Namespace.ToLower().Contains("tasty", StringComparison.Ordinal));
+            var tastyEnums = allTypes.Where(t => 
+                t != null && 
+                (!string.IsNullOrWhiteSpace(t.Namespace)) && 
+                t.Namespace.StartsWith(assemblyNamePrefix) && t.IsEnum).ToList();
             var enumValuesList = new List<FlatEnumValueAttributeName>();
             tastyEnums.ForEach(enumType =>
             {
@@ -70,12 +75,12 @@ namespace TastyTrade.Client.Tests.Serialization
             var order = new PlaceOrderRequest()
             {
                 OrderType = OrderType.StopLimit,
-                Legs = new List<OrderSubmissionLeg>() {
+                Legs = [
                      new OrderSubmissionLeg() {
                          Action = OrderLegAction.BuyToClose,
                          InstrumentType = InstrumentType.EquityOption
                      }
-                 }
+                 ]
             };
 
             var enumValuesToTest = GetEnumsWithSerializationAttributes();
@@ -96,8 +101,7 @@ namespace TastyTrade.Client.Tests.Serialization
                 var rehydratedOrder = JsonSerializer.Deserialize(jsonOrder, testableEnumValue.Value.GetType());
                 var actual = enumProp.GetValue(rehydratedOrder);
 
-                // we should see the exact expected serialization attribute text in the json
-                Assert.IsTrue(jsonOrder.Contains(testableEnumValue.Key.EnumValueNameSerializationName), $"json should contain {testableEnumValue.Key.EnumValueNameSerializationName} but doesn't");
+                Assert.That(jsonOrder, Does.Contain(testableEnumValue.Key.EnumValueNameSerializationName), $"json should contain {testableEnumValue.Key.EnumValueNameSerializationName} but doesn't");
                 Assert.That(actual, Is.EqualTo(testableEnumValue.Key.EnumValue));
             }
         }
@@ -108,7 +112,7 @@ namespace TastyTrade.Client.Tests.Serialization
         /// </summary>
         /// <param name="enumsValues2Test"></param>
         /// <returns></returns>
-        public static Dictionary<FlatEnumValueAttributeName, object> BuildDynamicTypeWithProperties(List<FlatEnumValueAttributeName> enumsValues2Test)
+        private static Dictionary<FlatEnumValueAttributeName, object> BuildDynamicTypeWithProperties(List<FlatEnumValueAttributeName> enumsValues2Test)
         {
             var types2Test = enumsValues2Test.ToDictionary(k => k, k => new object());
             AppDomain myDomain = Thread.GetDomain();
@@ -135,13 +139,10 @@ namespace TastyTrade.Client.Tests.Serialization
 
                 var attrCtorParams = new Type[] { typeof(Type) };
                 var attrCtorInfo = typeof(JsonConverterAttribute).GetConstructor(attrCtorParams);
-                var attrBuilder = new CustomAttributeBuilder(attrCtorInfo, new object[] { typeof(JsonStringEnumConverter) });
+                var attrBuilder = new CustomAttributeBuilder(attrCtorInfo, [typeof(JsonStringEnumConverter)]);
                 enumTestPropBldr.SetCustomAttribute(attrBuilder);
 
-
-                MethodAttributes getSetAttr =
-                    MethodAttributes.Public | MethodAttributes.SpecialName |
-                        MethodAttributes.HideBySig;
+                MethodAttributes getSetAttr = MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig;
 
                 MethodBuilder enumTestGetPropMthdBldr =
                     myTypeBuilder.DefineMethod($"get_{type2Test.EnumValueName}",
@@ -159,7 +160,7 @@ namespace TastyTrade.Client.Tests.Serialization
                     myTypeBuilder.DefineMethod($"set_{type2Test.EnumValueName}",
                                                getSetAttr,
                                                null,
-                                               new Type[] { type2Test.EnumType });
+                                               [type2Test.EnumType]);
 
                 ILGenerator custNameSetIL = enumTestSetPropMthdBldr.GetILGenerator();
 
