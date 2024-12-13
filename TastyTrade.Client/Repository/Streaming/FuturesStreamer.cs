@@ -5,14 +5,22 @@ using System.Threading.Tasks;
 using DxFeed.Graal.Net.Api;
 using DxFeed.Graal.Net.Events.Market;
 using TastyTrade.Client.Model.Request;
+using TastyTrade.Client.Repository;
 
 namespace TastyTrade.Client.Examples;
 
 public static class FuturesStreamer
 {
-    public static async Task Run(){
+    public static async Task Run()
+    {
+        var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(RepositoryConstants.DefaultCredentialsPath));
+        await Run(credentials);
+    }
 
-        var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(Program.CredsPath));
+    public static async Task Run(AuthorizationCredentials credentials)
+    {
+
+        
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
         var es = await tastyTradeClient.GetFuturesContract("ESU4");

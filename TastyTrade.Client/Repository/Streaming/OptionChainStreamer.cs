@@ -5,6 +5,7 @@ using DxFeed.Graal.Net.Api;
 using DxFeed.Graal.Net.Events.Market;
 using TastyTrade.Client.Model.Helper;
 using TastyTrade.Client.Model.Request;
+using TastyTrade.Client.Repository;
 
 namespace TastyTrade.Client.Examples;
 
@@ -14,7 +15,13 @@ public static class OptionChainStreamer
 
     public static async Task Run()
     {
-        var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(Program.CredsPath));
+        var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(RepositoryConstants.DefaultCredentialsPath));
+        await Run(credentials);
+    }
+
+    public static async Task Run(AuthorizationCredentials credentials)
+    {
+
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
 
