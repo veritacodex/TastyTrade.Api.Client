@@ -16,9 +16,9 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ env.NET_VERSION }}
-    - name: Build and pack
+    - name: Restore
       run: dotnet restore
-    - name: Build
+    - name: Build and Pack
       run: dotnet clean && dotnet build ${{ env.PROJECT_PATH }} -c Release
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.1.1
