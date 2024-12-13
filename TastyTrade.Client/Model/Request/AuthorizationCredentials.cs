@@ -21,4 +21,7 @@ public class AuthorizationCredentials
 
     [JsonPropertyName("api-base-url")]
     public string ApiBaseUrl { get; set; }
+
+    [JsonPropertyName("streaming-api-base-url")]
+    public string StreamingApiBaseUrl { get; set; }
 }

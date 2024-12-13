@@ -16,7 +16,7 @@ public class TastyTradeClient
     private AuthenticationResponse _authenticationResponse;
     private string _userAgent;
     private string _baseUrl;
-
+    public AuthenticationResponse GetAuthenticationResponse() { return _authenticationResponse; }
     public async Task Authenticate(AuthorizationCredentials credentials)
     {
         _userAgent = credentials.UserAgent;
