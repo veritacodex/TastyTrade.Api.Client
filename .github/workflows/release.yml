@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ env.NET_VERSION }}
-    - name: Restore dependencies
+    - name: Build and pack
       run: dotnet restore
     - name: Build
       run: dotnet clean && dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore && dotnet pack
@@ -27,5 +27,5 @@ jobs:
         path: ${{ env.NUGET_PATH }}
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.1.1
-    - name: Publish
+    - name: Publish to Nuget
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
