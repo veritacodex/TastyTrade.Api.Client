@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 using TastyTrade.Client.Model.Request.Streaming;
 
 namespace TastyTrade.Client.Model.Response.Streaming
@@ -13,9 +7,7 @@ namespace TastyTrade.Client.Model.Response.Streaming
         [JsonStringEnumMemberName("ok")]
         OK = 0,
         [JsonStringEnumMemberName("error")]
-        Error = 1 
-
-
+        Error = 1
     }
     public class SubscriptionActionMessageResponse<T> where T : class
     {

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace TastyTrade.Client.Model.Request.Streaming
 {
-    public enum SubscriptionActionType {
-        
+    public enum SubscriptionActionType
+    {
+
         [JsonStringEnumMemberName("connect")]
         Connect = 0,
         [JsonStringEnumMemberName("heartbeat")]
@@ -19,15 +14,10 @@ namespace TastyTrade.Client.Model.Request.Streaming
         [JsonStringEnumMemberName("quote-alerts-subscribe")]
         QuoteAlertsSubscribe = 3,
         [JsonStringEnumMemberName("user-message-subscribe")]
-        UserMessageSubscribe = 4,
-
+        UserMessageSubscribe = 4
     }
 
-    
-        
-
-
-    public class SubscriptionActionMessageRequest<T> 
+    public class SubscriptionActionMessageRequest<T>
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [JsonPropertyName("action")] // one of the available actions below
@@ -41,5 +31,5 @@ namespace TastyTrade.Client.Model.Request.Streaming
 
         [JsonPropertyName("request-id")]
         public long RequestId { get; set; }
-}
+    }
 }

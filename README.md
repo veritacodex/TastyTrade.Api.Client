@@ -14,6 +14,7 @@ In order to run the examples project create a credentials.json file within the p
     "login": "",
     "password": "",
     "user-agent": "any user agent to indentify your application",
-    "api-base-url": "https://api.cert.tastyworks.com"
+    "api-base-url": "",
+    "streaming-api-base-url": ""
 }
 ```

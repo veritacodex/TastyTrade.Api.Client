@@ -28,7 +28,7 @@ namespace TastyTrade.Client.Examples
                 ]
             };
 
-            var orderSubmissionResponse = await tastyTradeClient.PostOrderSubmission(credentials.AccountNumber, orderSubmission);
+            await tastyTradeClient.PostOrderSubmission(credentials.AccountNumber, orderSubmission);
         }
     }
 }
