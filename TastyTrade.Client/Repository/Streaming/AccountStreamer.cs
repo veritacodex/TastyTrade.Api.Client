@@ -78,11 +78,6 @@ namespace TastyTrade.Client.Examples
             var actionMessageActionTypeSerializationValue = ((JsonPropertyNameAttribute)actionMessageActionTypeAttributes[0]).Name;
             _accountUpdateKeySerializationPropertyNameMap.Add(_SubscriptionActionMessageResponse_Action, actionMessageActionTypeSerializationValue);
         }
-        public static async Task Run()
-        {
-            var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(RepositoryConstants.DefaultCredentialsPath));
-            await Run(credentials);
-        }
 
         public static async Task Run(AuthorizationCredentials credentials)
         {

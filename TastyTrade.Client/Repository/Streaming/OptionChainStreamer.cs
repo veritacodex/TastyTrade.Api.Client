@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,19 +14,12 @@ public static class OptionChainStreamer
 {
     private static OptionChain _optionChain;
 
-    public static async Task Run()
-    {
-        var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(RepositoryConstants.DefaultCredentialsPath));
-        await Run(credentials);
-    }
-
-    public static async Task Run(AuthorizationCredentials credentials)
+    public static async Task Run(AuthorizationCredentials credentials, string symbol, DateTime expirationOnOrAfter)
     {
 
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
 
-        string symbol = "AAPL";
         var underlying = await tastyTradeClient.GetEquity(symbol);
         var optionChainsResponse = await tastyTradeClient.GetOptionChains(symbol);
 
