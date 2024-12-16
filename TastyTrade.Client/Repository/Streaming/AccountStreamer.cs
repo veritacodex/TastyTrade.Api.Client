@@ -15,6 +15,7 @@ using TastyTrade.Client.Model.Request.Streaming;
 using TastyTrade.Client.Model.Response.Streaming;
 using TastyTrade.Client.Model.Helper;
 using TastyTrade.Client.Utils;
+using TastyTrade.Client.Repository;
 
 namespace TastyTrade.Client.Examples
 {
@@ -77,12 +78,14 @@ namespace TastyTrade.Client.Examples
             var actionMessageActionTypeSerializationValue = ((JsonPropertyNameAttribute)actionMessageActionTypeAttributes[0]).Name;
             _accountUpdateKeySerializationPropertyNameMap.Add(_SubscriptionActionMessageResponse_Action, actionMessageActionTypeSerializationValue);
         }
-        public static async Task Run()
+
+        public static async Task Run(AuthorizationCredentials credentials)
         {
+
             _accountUpdates = new AccountDataUpdates();
 
             SetupSerializationAttributeStringMaps();
-            var credentials = JsonSerializer.Deserialize<AuthorizationCredentials>(await File.ReadAllTextAsync(Program.CredsPath));
+            
             var tastyTradeClient = new TastyTradeClient();
             await tastyTradeClient.Authenticate(credentials);
 
