@@ -1,22 +1,17 @@
 using System;
-using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
 using DxFeed.Graal.Net.Api;
 using DxFeed.Graal.Net.Events.Market;
 using TastyTrade.Client.Model.Helper;
 using TastyTrade.Client.Model.Request;
-using TastyTrade.Client.Repository;
 
-namespace TastyTrade.Client.Examples;
+namespace TastyTrade.Client.Streaming;
 
 public static class OptionChainStreamer
 {
     private static OptionChain _optionChain;
-
-    public static async Task Run(AuthorizationCredentials credentials, string symbol, DateTime expirationOnOrAfter)
+    public static async Task Run(AuthorizationCredentials credentials, string symbol, DateTime onOrAfter)
     {
-
         var tastyTradeClient = new TastyTradeClient();
         await tastyTradeClient.Authenticate(credentials);
 
@@ -24,7 +19,7 @@ public static class OptionChainStreamer
         var optionChainsResponse = await tastyTradeClient.GetOptionChains(symbol);
 
         _optionChain = new OptionChain(underlying, optionChainsResponse);
-        _optionChain.SelectNextExpiration();
+        _optionChain.SelectNextExpiration(onOrAfter);
 
         var apiQuoteTokens = await tastyTradeClient.GetApiQuoteTokens();
         var address = $"dxlink:{apiQuoteTokens.Data.DxlinkUrl}[login=dxlink:{apiQuoteTokens.Data.Token}]";
@@ -42,6 +37,7 @@ public static class OptionChainStreamer
             }
         });
         quotes.AddSymbols(_optionChain.Underlying.StreamerSymbol);
+
         foreach (var expiration in _optionChain.Expirations[0].Items)
         {
             quotes.AddSymbols(expiration.Call.StreamerSymbol);

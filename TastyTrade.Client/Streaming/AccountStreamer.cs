@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
@@ -15,9 +14,8 @@ using TastyTrade.Client.Model.Request.Streaming;
 using TastyTrade.Client.Model.Response.Streaming;
 using TastyTrade.Client.Model.Helper;
 using TastyTrade.Client.Utils;
-using TastyTrade.Client.Repository;
 
-namespace TastyTrade.Client.Examples
+namespace TastyTrade.Client.Streaming
 {
     public static class AccountStreamer
     {
@@ -38,7 +36,7 @@ namespace TastyTrade.Client.Examples
             var connectMemberInfos = actionTypeEnumType.GetMember(SubscriptionActionType.Connect.ToString());
             var connectEnumValueMemberInfo = connectMemberInfos.FirstOrDefault(m =>
             m.DeclaringType == actionTypeEnumType);
-            Guard.NotNull(connectEnumValueMemberInfo, nameof(connectEnumValueMemberInfo)); 
+            Guard.NotNull(connectEnumValueMemberInfo, nameof(connectEnumValueMemberInfo));
             var connectValueAttributes = connectEnumValueMemberInfo.GetCustomAttributes(typeof(JsonStringEnumMemberNameAttribute), false);
             var connectSerializationValue = ((JsonStringEnumMemberNameAttribute)connectValueAttributes[0]).Name;
             _actionTypeStringMap.Add(SubscriptionActionType.Connect, connectSerializationValue);
@@ -47,7 +45,7 @@ namespace TastyTrade.Client.Examples
             var heartbeatMemberInfos = actionTypeEnumType.GetMember(SubscriptionActionType.Heartbeat.ToString());
             var heartbeatEnumValueMemberInfo = heartbeatMemberInfos.FirstOrDefault(m =>
             m.DeclaringType == actionTypeEnumType);
-            Guard.NotNull(heartbeatEnumValueMemberInfo, nameof(heartbeatEnumValueMemberInfo)); 
+            Guard.NotNull(heartbeatEnumValueMemberInfo, nameof(heartbeatEnumValueMemberInfo));
             var heartbeatValueAttributes = heartbeatEnumValueMemberInfo.GetCustomAttributes(typeof(JsonStringEnumMemberNameAttribute), false);
             var heartbeatSerializationValue = ((JsonStringEnumMemberNameAttribute)heartbeatValueAttributes[0]).Name;
             _actionTypeStringMap.Add(SubscriptionActionType.Heartbeat, heartbeatSerializationValue);
@@ -63,15 +61,14 @@ namespace TastyTrade.Client.Examples
             var orderSerializationValue = ((JsonStringEnumMemberNameAttribute)orderValueAttributes[0]).Name;
             _accountUpdateTypeStringMap.Add(StreamingAccountUpdateType.Order, orderSerializationValue);
 
-            //map message response type keys
-            //StreamingAccountOrderUpdate
+            //map account updates
             var streamingAccountOrderUpdateType = typeof(StreamingAccountOrderUpdate);
             var updateTypeMemberInfo = streamingAccountOrderUpdateType.GetMember(_StreamingAccountOrderUpdate_Type)[0];
             var updateTypeAttributes = updateTypeMemberInfo.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false);
             var updateTypeSerializationValue = ((JsonPropertyNameAttribute)updateTypeAttributes[0]).Name;
             _accountUpdateKeySerializationPropertyNameMap.Add(_StreamingAccountOrderUpdate_Type, updateTypeSerializationValue);
 
-            //SubscriptionActionMessageResponse<string>
+            //map action updates
             var actionMessageActionType = typeof(SubscriptionActionMessageResponse<string>);
             var actionMessageActionTypeMemberInfo = actionMessageActionType.GetMember(_SubscriptionActionMessageResponse_Action)[0];
             var actionMessageActionTypeAttributes = actionMessageActionTypeMemberInfo.GetCustomAttributes(typeof(JsonPropertyNameAttribute), false);
@@ -83,9 +80,8 @@ namespace TastyTrade.Client.Examples
         {
 
             _accountUpdates = new AccountDataUpdates();
-
             SetupSerializationAttributeStringMaps();
-            
+
             var tastyTradeClient = new TastyTradeClient();
             await tastyTradeClient.Authenticate(credentials);
 
@@ -119,7 +115,7 @@ namespace TastyTrade.Client.Examples
 
             byte[] buffer = new byte[4096];
 
-            while (ws.State == WebSocketState.Open && (_accountUpdates.ConnectionStatus != AccountDataUpdatesConnectionStatus.Fault))
+            while (ws.State == WebSocketState.Open && _accountUpdates.ConnectionStatus != AccountDataUpdatesConnectionStatus.Fault)
             {
                 // exec waits on receive here, so heartbeat has to be in a separate task or code won't fire heart beat until another update comes through which means socket will likley die in 10 to 15 seconds
                 var result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
@@ -139,7 +135,7 @@ namespace TastyTrade.Client.Examples
 
         private static void HandleMessage(byte[] buffer, int count)
         {
-            var msgBody = UTF8Encoding.UTF8.GetString(buffer, 0, count);
+            var msgBody = Encoding.UTF8.GetString(buffer, 0, count);
             Console.WriteLine(msgBody);
             if (msgBody.Contains($"\"{_accountUpdateKeySerializationPropertyNameMap[_SubscriptionActionMessageResponse_Action]}\":\"{_actionTypeStringMap[SubscriptionActionType.Connect]}\""))
             {

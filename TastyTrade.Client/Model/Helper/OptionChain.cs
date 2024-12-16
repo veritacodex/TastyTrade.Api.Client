@@ -76,21 +76,10 @@ public class OptionChain
         }
     }
 
-    public void SelectNextExpiration()
+    public void SelectNextExpiration(DateTime onOrAfter)
     {
-        var nextExpirationDate = GetNextExpirationDate();
-        SelectNextExpiration();
-    }
-
-    public void SelectNextExpiration(DateTime expirationOnOrAfter)
-    {
-        var nextExpirationDate = GetNextExpirationDate(expirationOnOrAfter);
+        var nextExpirationDate = GetNextExpirationDate(onOrAfter);
         Expirations = Expirations.Where(x => x.ExpirationDate == nextExpirationDate).ToList();
-    }
-
-    private string GetNextExpirationDate()
-    {
-        return GetNextExpirationDate(DateTime.Now);
     }
 
     private string GetNextExpirationDate(DateTime onOrAfter)
